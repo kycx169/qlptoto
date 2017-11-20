@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +25,8 @@ Route::post('/them-nhan-vien', 'UserController@creatUser')->name('creatUser');
 Route::get('/sua-nhan-vien/{id}', 'UserController@modifyUser')->name('modifyUser');
 Route::post('/sua-nhan-vien/{id}', 'UserController@editUser')->name('editUser');
 Route::get('/xoa-nhan-vien/{id}', 'UserController@deleteUser')->name('deleteUser');
+
+Route::get('/product-create','ProductController@create')->name('product-create');
+Route::get('/product-import','ProductController@import')->name('product-import');
+Route::get('/product-release','ProductController@release')->name('product-release');
+Route::get('/product-index','ProductController@index')->name('product-index');

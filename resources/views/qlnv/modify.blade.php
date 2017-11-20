@@ -40,6 +40,7 @@
 			                <div class="form-group">
 			                  <label>Tên nhân viên: </label>
 			                  <input type="text" class="form-control" id="username" value="{{$users->name}}" name="username">
+                              <label class="err3 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
 			                  <label>Ngày sinh: </label>
@@ -87,6 +88,12 @@
     		} else {
     			$('.err2').hide();
     		}
+            if($('#username').val()=="") {
+                $('.err3').text("Tên nhân viên không được để trống!");
+                return false;
+            } else {
+                $('.err3').hide();
+            }
     	}
     </script>
 @endsection
