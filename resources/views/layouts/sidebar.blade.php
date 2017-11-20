@@ -7,10 +7,10 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="{{url(Session::get('avatar'))}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Alexander Pierce</p>
+                    <p>{{Session::get('name')}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
@@ -36,7 +36,7 @@
                   </ul>
                 </li> -->
                 <li><a href="#"><i class="fa fa-truck"></i> <span>Quản lý kho hàng</span></a></li>
-                <li><a href="#"><i class="fa fa-user"></i> <span>Quản lý nhân viên</span></a></li>
+                <li><a href="{{url(route('qlnv'))}}"><i class="fa fa-user"></i> <span>Quản lý nhân viên</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
