@@ -7,6 +7,11 @@
 <!-- DataTables -->
 <script src="{{url('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
 <!-- SlimScroll -->
 <script src="{{url('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
@@ -18,14 +23,27 @@
 <!-- page script -->
 <script>
     $(function () {
-        $('#example1').DataTable()
+        $('#example1').DataTable();
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                    {
+                        extend: 'excel',
+                        title: 'Thống kê sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3, 5 ]
+                        }
+
+                    }
+            ]
+        });
         $('#example2').DataTable({
             'paging'      : true,
             'lengthChange': false,
             'searching'   : false,
             'ordering'    : true,
             'info'        : true,
-            'autoWidth'   : false
+            'autoWidth'   : false,
         })
     })
 </script>

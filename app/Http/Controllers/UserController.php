@@ -15,9 +15,9 @@ class UserController extends Controller
     	return view('qlnv.list',compact('users'));
     }
 
-    public function xuathang()
+    public function trangchu()
     {   
-        return view('xuathang.xuathang');
+        return view('trangchu');
     }
 
     public function login()
@@ -52,7 +52,7 @@ class UserController extends Controller
             Session::put('pass', $pass);
             Session::put('name', $name);
             Session::put('avatar', $avatar);
-            return redirect(url(route('xuathang')));
+            return redirect(url(route('trangchu')));
         }
     }
 

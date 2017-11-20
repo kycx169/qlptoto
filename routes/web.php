@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/xuat-hang', function () {
-    return view('xuathang.xuathang');
-});
+// Route::get('/xuat-hang', function () {
+//     return view('xuathang.xuathang');
+// });
 
-Route::get('/xuat-hang', 'UserController@xuathang')->name('xuathang');
+Route::get('/trang-chu', 'UserController@trangchu')->name('trangchu');
 Route::get('/login', 'UserController@login')->name('login');
 Route::get('/logout', 'UserController@logout')->name('logout');
 Route::post('/login', 'UserController@postLogin')->name('postLogin');
