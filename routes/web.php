@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +14,7 @@
 Route::get('/xuat-hang', function () {
     return view('xuathang.xuathang');
 });
+Route::get('/product-create','ProductController@create')->name('product-create');
+Route::get('/product-import','ProductController@import')->name('product-import');
+Route::get('/product-release','ProductController@release')->name('product-release');
+Route::get('/product-index','ProductController@index')->name('product-index');
