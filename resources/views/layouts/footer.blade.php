@@ -30,20 +30,53 @@
         $('#example').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                    {
-                        extend: 'excel',
-                        title: 'Thống kê sản phẩm',
-                        exportOptions: {
-                        columns: [ 0, 1, 2, 3, 5 ]
-                        }
-
+                {
+                    extend: 'excel',
+                    title: 'Thống kê sản phẩm',
+                    exportOptions: {
+                        columns: [ 0, 1 ]
                     }
+                },
+                {
+                    extend: 'print',
+                    title: 'Thống kê sản phẩm',
+                    exportOptions: {
+                        columns: [ 0, 1 ]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Thống kê sản phẩm',
+                    exportOptions: {
+                        columns: [ 0, 1 ]
+                    }
+                }
             ]
         });
         $('#pdf').DataTable( {
             dom: 'Bfrtip',
             buttons: [
-                 'excel', 'pdf', 'print'
+                {
+                extend: 'excel',
+                title: 'Thống kê sản phẩm',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 5 ]
+                }
+                },
+                {
+                extend: 'print',
+                title: 'Thống kê sản phẩm',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 5 ]
+                }
+                },
+                {
+                extend: 'pdf',
+                title: 'Thống kê sản phẩm',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 5 ]
+                }
+                }
             ]
         } );
         $('#example2').DataTable({

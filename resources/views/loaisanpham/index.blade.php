@@ -52,7 +52,7 @@
                             </div>
 	                    @endif
                         <!-- /.box-header -->
-                        <table id="pdf" class="table table-bordered table-striped">
+                        <table id="example" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
