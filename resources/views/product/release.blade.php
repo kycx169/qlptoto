@@ -1,73 +1,64 @@
 @extends('master')
 @section('content')
-<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Xuất hàng
-                <!-- <small>Optional description</small> -->
+                Nhập Hàng
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
+
             </ol>
         </section>
-
         <!-- Main content -->
         <section class="content container-fluid">
             <div class="row">
+                <!-- left column -->
                 <div class="col-md-12">
-                    <button class="btn btn-success pull-right"><i class="fa fa-print" aria-hidden="true"></i> In Hóa Đơn</button>
-                </div>
-            </div>
-            <div class="row">
-                <!-- right column -->
-                <div class="col-md-12">
-                    <!-- Horizontal Form -->
-                    <div class="box box-info" style="height: 500px">
+                    <!-- general form elements -->
+                    <div class="box box-primary" style="height: 500px ;width: 600px">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Danh sách xuất hàng</h3>
+                            <a href="{{route('product-add')}}"><h3 class="box-title">Thêm sản phẩm</h3></a>
                         </div>
                         <!-- /.box-header -->
-                        <table id="example2" class="table table-bordered table-striped" style="padding-top: 33px">
-                            <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Lốp xe</td>
-                                <td><input type="number" name="quality" value="0" min="0"></td>
-                                <td><span class="label label-warning">Hủy</span></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Lốp xe</td>
-                                <td><input type="number" name="quality" value="0" min="0"></td>
-                                <td><span class="label label-warning">Hủy</span></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Lốp xe</td>
-                                <td><input type="number" name="quality" value="0" min="0"></td>
-                                <td><span class="label label-warning">Hủy</span></td>
-                            </tr>
-                            </tbody>
+                        <form class="form-horizontal">
 
-                        </table>
+                            <div class="form-group product">
+                                <label class="control-label col-sm-2" >Tên nhân viên:</label>
+                                <div class="col-sm-5">
+                                        <input style="width: 230px" required    >
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Ngày lập</label>
+                                    <input  name="number" value="{{date('d/m/Y')}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group product">
+                                <label class="control-label col-sm-2" >Tên sản phẩm:</label>
+                                <div class="col-sm-5">
+                                    {{--<input type="text" class="form-control" id="" placeholder=" " name="product_name">--}}
+                                    <select name="product_id" class="form-control">
+                                        @foreach($all_product as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Số lượng</label>
+                                    <input type="number" name="number" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Xác nhận</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.box -->
                 </div>
-                <!--/.col (right) -->
             </div>
         </section>
         <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 @endsection

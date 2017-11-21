@@ -20,8 +20,9 @@ class ProductController extends Controller
             $product_id = $request->product_id;
             $product = Product::find($product_id);
             $product->number -= $request->number;
-            $product->status = "Còn hàng";
-            $product->save();
+            if ($product->number == 0) {
+                $product->status = "Hết hàng";
+            }            $product->save();
 
             return redirect() ->route('product-index');
         }
@@ -30,6 +31,8 @@ class ProductController extends Controller
     }
 
     public function import(Request $request) {
+        $users= DB::table('employees')
+            ->get();
         $all_product = Product::all();
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
@@ -41,52 +44,80 @@ class ProductController extends Controller
             return redirect() ->route('product-index');
         }
 
-        return view('product.import',compact('all_product'));
+        return view('product.import',compact('all_product','users'));
     }
 
-    public function create(Request $request) {
+
+    public function add() {
+        $product_type = DB::table('product_type')
+            ->get();
+        return view('product.create',compact('product_type'));
+    }
+
+
+    public function update($id){
+        $product = DB::table('product')
+            ->where('id',$id)
+            ->first();
+        return view('product.update',compact('product'));
+    }
+
+    public function edit($id, Request $request){
+        $name=$request->name;
+        $number=$request->number;
+        $status=$request->status;
+        $dongia=$request->dongia;
+        $avatar=$request->avatar;
+
+        if(isset($file))
+        {
+            $filename=$file->getClientOriginalName();
+            $file->move('img',$filename);
+            DB::table('product')
+                ->where('id',$id)
+                ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia,'avatar' => 'avatar/'.$filename ]);
+        }
+        DB::table('product')
+            ->where('id',$id)
+            ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia]);
+        return redirect(url(route('product-index')))->with('thongbao','Sửa thành công');
+    }
+
+    public function delete($id)
+    {
+        DB::table('product')
+            ->where('id',$id)
+            ->delete();
+        return redirect(url(route('product-index')))->with('thongbao','Xóa thành công');
+    }
+
+    public function createproduct(Request $request) {
         $name = $request->product_name;
-        $product = Product::all();
-        if (isset($name)) {
-            $i = 0;
-            foreach ($product as $p) {
-                if ($p->name == $name) {
-                    $i = 1;
-                } else {
-                    $i = 0;
-                }
-            }
-            if ($i == 0) {
-                if ($name)
-                    $product = new Product();
-                $product->name = $request->product_name;
-                $product->number = $request->number;
-                $product->avatar = $request->avatar;
-                $product->dongia = $request->dongia;
-                $product->save();
-                $this->uploadfile($request);
-                return redirect()->route('product-index');
-            } else {
-                return view('product.create');
-            }
-
-        } else {
-            return view('product.create');
+        $number = $request->number;
+        $dongia = $request->dongia;
+        $avatar = $request->avatar;
+        $filename = "";
+        $num= Product::all()->where('name',$name) ->count();
+        if($num>0) {
+            return redirect()->back()->with('loi','Sản phẩm đã tồn tại!');
         }
-    }
-    public function uploadfile(Request $request) {
-        if ($request->hasFile('avatar')) {
-//
-//            $filename = $request->file->getClientOriginalName();
-//            $filesize = $request->file->getClientSize();
-//            $request->file->storeAs('public/img',$filename);
-//            $file = new File;
-//            $file->name = $filename;
-//            $file->name = $filesize;
-//            $file->save();
-            dd("ok");
+        if(isset($avatar))
+        {
+            $filename=$avatar->getClientOriginalName();
+            $avatar->move('img',$filename);
+        }else {
+            $filename = 'noimage.jpg';
         }
+        $product = new Product();
+        $product->name = $name;
+        $product->number = $number;
+        if ($number == 0) {
+            $product->status = 'Hết hàng';
+        }
+        $product->avatar = 'img/'.$filename;
+        $product->dongia = $dongia;
+        $product->save();
 
-        return "OK";
+        return redirect(url(route('product-index')))->with('thongbao','Tạo thành công');
     }
 }

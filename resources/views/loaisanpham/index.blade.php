@@ -1,11 +1,23 @@
 @extends('master')
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
+<style type="text/css">
+	.table td:nth-child(2) {
+		vertical-align: middle;
+		text-align: center;
+	}
+	.table td {
+		vertical-align: middle;
+	}
+	.table a span {
+		font-size: 12px;
+	}
+</style>
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Quản lý kho hàng
+                Quản lý loại sản phẩm
                 <!-- <small>Optional description</small> -->
             </h1>
             <ol class="breadcrumb">
@@ -18,59 +30,49 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-primary pull-right" href="{{url(route('product-add'))}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm</a>
+                    <a class="btn btn-primary pull-right" href="{{url(route('addType'))}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm</a>
                 </div>
             </div>
             <div class="row">
-                <!-- left column -->
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="box box-primary">
                         <div class="row">
                             <div class="box-header with-border col-md-6">
-                                <h3 class="box-title">Danh sách sản phẩm</h3>
+                                <h3 class="box-title"><a href="{{route('product-index')}}">Danh sách sản phẩm</a></h3>
                             </div>
                             <div class="box-header with-border col-md-6">
-                                <h3 class="box-title"><a href="{{route('index')}}">Danh sách loại sản phẩm</a></h3>
+                                <h3 class="box-title">Danh sách loại sản  phẩm</h3>
                             </div>
 
                         </div>
                         @if(session('thongbao'))
-                            <div class="alert alert-success thongbao">
-                                {{session('thongbao')}}
+                            <div class="alert alert-success thongbao"> 
+	                           {{session('thongbao')}}
                             </div>
-                         @endif
+	                    @endif
                         <!-- /.box-header -->
                         <table id="pdf" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Đơn giá</th>
-                                <th>Ảnh sản phẩm</th>
-                                <th>Tình trạng</th>
+                                <th>Tên loại sản phẩm</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $i = 1; ?>
-                            @foreach($product as $p)
+                        	<?php $i=0;?>
+                        	@foreach($types as $type)
                             <tr>
-                                <td>{{$i++}}</td>
-                                <td>{{$p->name}}</td>
-                                <td>{{$p->number}}</td>
-                                <td>{{$p->dongia}}</td>
-                                <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=70 width=70></td>
-                                <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td>
+                                <td>{{++$i}}</td>
+                                <td class="pull-left">{{$type->name}}</td>
                                 <td>
-                                    <a href="{{url(route('updateProduct',$p->id))}}"><span class="label label-warning">Sửa</span> </a>|
-                                    <a href="{{url(route('deleteProduct',$p->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>
+                                	<a href="{{url(route('updateType',$type->id))}}"><span class="label label-warning">Sửa</span> </a>|
+                                	<a href="{{url(route('deleteType',$type->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>
                                 </td>
                             </tr>
                             @endforeach
                             </tbody>
-
                         </table>
                     </div>
                     <!-- /.box -->

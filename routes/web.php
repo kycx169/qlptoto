@@ -26,7 +26,21 @@ Route::get('/sua-nhan-vien/{id}', 'UserController@modifyUser')->name('modifyUser
 Route::post('/sua-nhan-vien/{id}', 'UserController@editUser')->name('editUser');
 Route::get('/xoa-nhan-vien/{id}', 'UserController@deleteUser')->name('deleteUser');
 
-Route::get('/product-create','ProductController@create')->name('product-create');
+Route::get('/loai-san-pham', 'ProductTypeController@index')->name('index');
+Route::get('/them-loai-sanpham', 'ProductTypeController@add')->name('addType');
+Route::post('/them-loai-sanpham', 'ProductTypeController@create')->name('createType');
+Route::get('/sua-loai-sanpham/{id}', 'ProductTypeController@update')->name('updateType');
+Route::post('/sua-loai-sanpham/{id}', 'ProductTypeController@edit')->name('editType');
+Route::get('/xoa-loai-sanpham/{id}', 'ProductTypeController@delete')->name('deleteType');
+
+//Route::get('/product-create','ProductController@create')->name('product-create1');
+Route::get('/product/add','ProductController@add')->name('product-add');
+Route::post('/product-create','ProductController@createproduct')->name('product-create');
+
+Route::get('/sua-sanpham/{id}', 'ProductController@update')->name('updateProduct');
+Route::post('/sua-sanpham/{id}', 'ProductController@edit')->name('editProduct');
+Route::get('/xoa-sanpham/{id}', 'ProductController@delete')->name('deleteProduct');
+
 Route::get('/product-import','ProductController@import')->name('product-import');
 Route::get('/product-release','ProductController@release')->name('product-release');
 Route::get('/product-index','ProductController@index')->name('product-index');

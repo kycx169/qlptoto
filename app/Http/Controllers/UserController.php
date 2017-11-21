@@ -62,7 +62,7 @@ class UserController extends Controller
     }
 
     public function creatUser(Request $req)
-    {	
+    {
     	$user=$req->user;
     	$pass=$req->pass;
     	$username=$req->username;

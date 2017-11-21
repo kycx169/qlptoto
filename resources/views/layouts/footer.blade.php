@@ -12,6 +12,9 @@
 <script src="{{url('js/jszip.min.js')}}"></script>
 <script src="{{url('js/buttons.html5.min.js')}}"></script>
 <script src="{{url('js/buttons.print.min.js')}}"></script>
+<script src="{{url('js/pdfmake.min.js')}}"></script>
+<script src="{{url('js/vfs_fonts.js')}}"></script>
+
 <!-- SlimScroll -->
 <script src="{{url('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
@@ -37,6 +40,12 @@
                     }
             ]
         });
+        $('#pdf').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                 'excel', 'pdf', 'print'
+            ]
+        } );
         $('#example2').DataTable({
             'paging'      : true,
             'lengthChange': false,
