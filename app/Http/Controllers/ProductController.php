@@ -15,6 +15,8 @@ class ProductController extends Controller
     }
 
     public function release(Request $request) {
+        $users= DB::table('employees')
+            ->get();
         $all_product = Product::all();
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
@@ -27,7 +29,7 @@ class ProductController extends Controller
             return redirect() ->route('product-index');
         }
 
-        return view('product.release',compact('all_product'));
+        return view('product.release',compact('all_product','users'));
     }
 
     public function import(Request $request) {

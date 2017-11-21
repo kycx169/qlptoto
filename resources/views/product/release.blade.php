@@ -4,7 +4,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nhập Hàng
+                Xuất Hàng
             </h1>
             <ol class="breadcrumb">
 
@@ -26,7 +26,13 @@
                             <div class="form-group product">
                                 <label class="control-label col-sm-2" >Tên nhân viên:</label>
                                 <div class="col-sm-5">
-                                        <input style="width: 230px" required    >
+                                    {{--<input type="text" class="form-control" id="" placeholder=" " name="product_name">--}}
+                                    <select name="product_id" class="form-control">
+                                        <option selected>---Chọn---</option>
+                                        @foreach($users as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-5">
                                     <label>Ngày lập</label>
