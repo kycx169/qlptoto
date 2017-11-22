@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -10,15 +11,22 @@
 
             </ol>
         </section>
+
         <!-- Main content -->
         <section class="content container-fluid">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
+                    <button class="btn btn-success pull-right"><i class="fa fa-print" aria-hidden="true"></i> In Hóa Đơn</button>
+                </div>
+            </div>
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
                     <!-- general form elements -->
-                    <div class="box box-primary" style="height: 500px ;width: 600px">
+                    <div class="box box-primary" style="height: 500px">
                         <div class="box-header with-border">
-                            <a href="{{route('product-add')}}"><h3 class="box-title">Thêm sản phẩm</h3></a>
+                            <h3 class="box-title">Danh sách sản phẩm</h3>
                         </div>
                         @if(session('loi'))
                             <div class="alert alert-danger thongbao">
@@ -26,45 +34,79 @@
                             </div>
                         @endif
                         <!-- /.box-header -->
-                        <form class="form-horizontal">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Hình sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Tình trạng</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i=0; ?>
+                            @foreach($all_product as $pro)
+                                <tr>
+                                    <td>{{++$i}}</td>
+                                    <td><img src="{{url($pro->avatar)}}" alt="anh san pham" width="50px" height="50px"></td>
+                                    <td>{{$pro->name}}</td>
+                                    <td>{{$pro->number}}</td>
+                                    <td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>
+                                    <td><a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i>  Thêm vào giỏ hàng</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
 
-                            <div class="form-group product">
-                                <label class="control-label col-sm-2" >Tên nhân viên:</label>
-                                <div class="col-sm-5">
-                                    {{--<input type="text" class="form-control" id="" placeholder=" " name="product_name">--}}
-                                    <select name="product_id" class="form-control">
-                                        <option selected>---Chọn---</option>
-                                        @foreach($users as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    <label>Ngày lập</label>
-                                    <input  name="number" value="{{date('d/m/Y')}}" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group product">
-                                <label class="control-label col-sm-2" >Tên sản phẩm:</label>
-                                <div class="col-sm-5">
-                                    {{--<input type="text" class="form-control" id="" placeholder=" " name="product_name">--}}
-                                    <select name="product_id" class="form-control">
-                                        @foreach($all_product as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    <label>Số lượng</label>
-                                    <input type="number" name="number" min="1" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Xác nhận</button>
-                                </div>
-                            </div>
-                        </form>
+                        </table>
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+                    <!-- Horizontal Form -->
+                    <div class="box box-info" style="height: 500px">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Danh sách xuất hàng</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <table id="example2" class="table table-bordered table-striped" style="padding-top: 33px">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(Session::has('cart'))
+                                <?php $i=0; ?>
+                                @foreach($cartProducts as $prod)
+                                <tr>
+                                    <td>{{++$i}}</td>
+                                    <td>{{$prod['item']->name}}</td>
+                                    <td><input type="number" name="quality" value="{{$prod['qty']}}" min="0" disabled></td>
+                                    <td>{{$prod['price']}}</td>
+                                    <td><a href="{{route('delCart',$prod['item']->id)}}"><span class="label label-warning">Hủy</span></a></td>
+                                </tr>
+                                @endforeach
+                            @else
+                                <td colspan="5">Chưa có sản phẩm nào</td>
+                            @endif
+                            </tbody>
+                            @if(isset($totalPrice))
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-right">Tổng tiền: </td>
+                                    <td>{{$totalPrice}}</td>
+                                </tr>
+                            </tfoot>
+                            @endif
+                        </table>
                     </div>
                     <!-- /.box -->
                 </div>

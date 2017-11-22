@@ -34,6 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="{{url('bower_components/jquery/dist/jquery.min.js')}}"></script>
 </head>
 @if(!Session::has('user'))
 <script type="text/javascript">
@@ -42,5 +43,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         {
             window.location.replace("login"); 
         }
+</script>
+@else 
+<script type="text/javascript">
+    $(document).ready(function(){
+         var check = {{Session::get('role')}};
+         if(check==1){
+                $('.hide-nhanvien').hide();
+            }
+    });
 </script>
 @endif

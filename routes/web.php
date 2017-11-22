@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/xuat-hang', function () {
-//     return view('xuathang.xuathang');
-// });
+Route::get('/', function () {
+    return redirect(route('login'));
+});
 
 Route::get('/trang-chu', 'UserController@trangchu')->name('trangchu');
 Route::get('/login', 'UserController@login')->name('login');
@@ -44,3 +44,6 @@ Route::get('/xoa-sanpham/{id}', 'ProductController@delete')->name('deleteProduct
 Route::get('/product-import','ProductController@import')->name('product-import');
 Route::get('/product-release','ProductController@release')->name('product-release');
 Route::get('/product-index','ProductController@index')->name('product-index');
+Route::get('/add-to-cart/{id}','ProductController@getAddToCart')->name('addToCart');
+Route::get('/del-cart/{id}','ProductController@getDelCart')->name('delCart');
+Route::get('/xoasession','ProductController@xoasession')->name('xoasession');

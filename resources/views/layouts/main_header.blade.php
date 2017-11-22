@@ -40,6 +40,9 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-right">
+                                    <a href="{{url(route('xoasession'))}}" class="btn btn-default btn-flat">xoa sesssion</a>
+                                </div>
+                                <div class="pull-right">
                                     <a href="{{url(route('logout'))}}" class="btn btn-default btn-flat">Đăng xuất</a>
                                 </div>
                             </li>

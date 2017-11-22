@@ -50,7 +50,7 @@
                                 <th>Đơn giá</th>
                                 <th>Ảnh sản phẩm</th>
                                 <th>Tình trạng</th>
-                                <th>Action</th>
+                                <th class="hide-nhanvien">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -63,7 +63,7 @@
                                 <td>{{$p->dongia}}</td>
                                 <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=70 width=70></td>
                                 <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td>
-                                <td>
+                                <td class="hide-nhanvien">
                                     <a href="{{url(route('updateProduct',$p->id))}}"><span class="label label-warning">Sửa</span> </a>|
                                     <a href="{{url(route('deleteProduct',$p->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>
                                 </td>
