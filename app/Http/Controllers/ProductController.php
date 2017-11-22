@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Cart;
 use Illuminate\Support\Facades\DB;
 use App\model\Product;
 use Illuminate\Support\Facades\File;
-
+use Session;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -28,7 +29,38 @@ class ProductController extends Controller
 
             return redirect() ->route('product-index');
         }
+        if(Session('cart')){
+            $oldCart = Session::get('cart');
+            $cart = new Cart($oldCart);
+            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
+        }
         return view('product.release',compact('all_product','users'));
+    }
+
+    public function getAddToCart(Request $request, $id)
+    {
+        $products = Product::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($products,$products->id);
+        $request->session()->put('cart',$cart);
+//        dd($request->session()->get('cart'));
+        return redirect()->route('product-release');
+    }
+
+    public function getDelCart($id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->reduceByOne($id);
+        Session::put('cart',$cart);
+        return redirect()->route('product-release');
+    }
+
+    public function xoasession()
+    {
+        Session::forget('cart');
+        return redirect()->route('product-release');
     }
 
     public function import(Request $request) {
