@@ -28,7 +28,6 @@ class ProductController extends Controller
 
             return redirect() ->route('product-index');
         }
-
         return view('product.release',compact('all_product','users'));
     }
 

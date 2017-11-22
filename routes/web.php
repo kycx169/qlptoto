@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/xuat-hang', function () {
-//     return view('xuathang.xuathang');
-// });
+Route::get('/', function () {
+    return redirect(route('login'));
+});
 
 Route::get('/trang-chu', 'UserController@trangchu')->name('trangchu');
 Route::get('/login', 'UserController@login')->name('login');

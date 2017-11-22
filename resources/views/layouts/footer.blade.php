@@ -1,7 +1,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="{{url('bower_components/jquery/dist/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{url('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- DataTables -->
@@ -27,7 +27,7 @@
 <script>
     $(function () {
         $('#example1').DataTable();
-        $('#example').DataTable({
+        $('#pdf').DataTable({
             dom: 'Bfrtip',
             buttons: [
                     {
@@ -36,16 +36,50 @@
                         exportOptions: {
                         columns: [ 0, 1, 2, 3, 5 ]
                         }
-
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Thống kê sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3, 5 ]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Thống kê sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3, 5 ]
+                        }
                     }
             ]
         });
-        $('#pdf').DataTable( {
+
+        $('#pdf2').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                 'excel', 'pdf', 'print'
+                    {
+                        extend: 'excel',
+                        title: 'Thống kê loại sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1 ]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Thống kê loại sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1 ]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Thống kê loại sản phẩm',
+                        exportOptions: {
+                        columns: [ 0, 1 ]
+                        }
+                    }
             ]
-        } );
+        });
         $('#example2').DataTable({
             'paging'      : true,
             'lengthChange': false,

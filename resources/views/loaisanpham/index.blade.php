@@ -52,12 +52,12 @@
                             </div>
 	                    @endif
                         <!-- /.box-header -->
-                        <table id="pdf" class="table table-bordered table-striped">
+                        <table id="pdf2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Tên loại sản phẩm</th>
-                                <th>Action</th>
+                                <th class="hide-nhanvien">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -66,7 +66,7 @@
                             <tr>
                                 <td>{{++$i}}</td>
                                 <td class="pull-left">{{$type->name}}</td>
-                                <td>
+                                <td class="hide-nhanvien">
                                 	<a href="{{url(route('updateType',$type->id))}}"><span class="label label-warning">Sửa</span> </a>|
                                 	<a href="{{url(route('deleteType',$type->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>
                                 </td>

@@ -48,10 +48,12 @@ class UserController extends Controller
                     ->first();
             $name=$info->name;
             $avatar=$info->avatar;
+            $role=$info->role;
             Session::put('user', $user);
             Session::put('pass', $pass);
             Session::put('name', $name);
             Session::put('avatar', $avatar);
+            Session::put('role', $role);
             return redirect(url(route('trangchu')));
         }
     }
