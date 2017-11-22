@@ -34,27 +34,36 @@
 			              <div class="box-body">
 			                <div class="form-group">
 			                  <label>Tên đăng nhập: </label>
-			                  <input type="text" class="form-control" id="user" placeholder="Tên đăng nhập" name="user">
+			                  <input type="text" class="form-control" id="user" pattern="[A-z]{11}" title="Tên đăng nhập chỉ chứa kí tự và không quá 10 kí tự" placeholder="Tên đăng nhập" name="user" required>
 			                  <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
 			                  <label>Mật khẩu: </label>
-			                  <input type="password" class="form-control" id="password" placeholder="Mật khẩu" name="pass">
+			                  <input type="password" class="form-control" id="password" placeholder="Mật khẩu" name="pass" required>
 			                  <label class="err2 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
 			                  <label>Tên nhân viên: </label>
-			                  <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" name="username">
+			                  <input type="text" class="form-control" id="username" min="5" max="40" pattern="[A-z]" title="Tên nhân viên chỉ chứa kí tự" placeholder="Tên đăng nhập" name="username" required>
                               <label class="err3 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
 			                  <label>Ngày sinh: </label>
-			                  <input type="text" class="form-control" id="birthday" name="birthday">
+			                  <input type="date" class="form-control" id="birthday" max="{{ date('Y-m-d') }}" name="birthday" required>
 			                </div>
 			                <div class="form-group">
 			                  <label>Địa chỉ: </label>
-			                  <input type="text" class="form-control" id="address" name="address">
+			                  <input type="text" class="form-control" min="5" id="address" name="address" required>
 			                </div>
+						    <div class="form-group">
+			                  <label>Vai trò: </label>
+							  <select id="role" name="role" required>
+								  	<option selected>---chọn---</option>
+								@foreach($role as $item)
+									<option value="{{ $item->id }}">{{ $item->role_name }}</option>
+								@endforeach
+							  </select>
+							</div>
 			                <div class="form-group">
 			                  <label>Hình đại diện: </label>
 			                  <input type="file" id="exampleInputFile" name="file" accept="image/*">

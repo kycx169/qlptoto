@@ -55,6 +55,7 @@
                                 <th>Tên nhân viên</th>
                                 <th>Ngày sinh</th>
                                 <th>Địa chỉ</th>
+                                <th>Vai trò</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -68,6 +69,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->birth_day}}</td>
                                 <td>{{$user->address}}</td>
+                                <td>{{($user->role) ==1 ? "Quản trị viên" : "Nhân viên"}}</td>
                                 <td>
                                 	<a href="{{url(route('modifyUser',$user->id))}}"><span class="label label-warning">Sửa</span> </a>|
                                 	<a href="{{url(route('deleteUser',$user->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>

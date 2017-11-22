@@ -59,8 +59,9 @@ class UserController extends Controller
     }
 
     public function addUser()
-    {	
-    	return view('qlnv.add');
+    {
+        $role = DB::table('role')->get();
+    	return view('qlnv.add',compact('role'));
     }
 
     public function creatUser(Request $req)
@@ -70,6 +71,7 @@ class UserController extends Controller
     	$username=$req->username;
     	$birthday=$req->birthday;
     	$address=$req->address;
+    	$role = $req->role;
         $filename="";
     	$file=$req->file;
         $num=DB::table('employees')
@@ -85,7 +87,7 @@ class UserController extends Controller
         }
     	DB::table('employees')
     	->insert(['user' => $user, 'password' => $pass, 'name' => $username,
-				  'birth_day' => $birthday, 'address' => $address, 'role' => 1, 
+				  'birth_day' => $birthday, 'address' => $address, 'role' => $role,
 				  'avatar' => 'avatar/'.$filename
 				 ]);
     	return redirect(url(route('qlnv')))->with('thongbao','Tạo thành công');
