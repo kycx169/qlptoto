@@ -20,6 +20,11 @@
                         <div class="box-header with-border">
                             <a href="{{route('product-add')}}"><h3 class="box-title">Thêm sản phẩm</h3></a>
                         </div>
+                        @if(session('loi'))
+                            <div class="alert alert-danger thongbao">
+                                {{session('loi')}}
+                            </div>
+                        @endif
                         <!-- /.box-header -->
                         <form class="form-horizontal">
 
@@ -51,7 +56,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label>Số lượng</label>
-                                    <input type="number" name="number" required>
+                                    <input type="number" name="number" min="1" required>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -21,7 +21,11 @@ class ProductController extends Controller
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
             $product = Product::find($product_id);
-            $product->number -= $request->number;
+            if ($product->number > $request->number) {
+                $product->number -= $request->number;
+            }else {
+                return redirect()->back()->with('loi','Số lượng hàng trong kho không đủ !');
+            }
             if ($product->number == 0) {
                 $product->status = "Hết hàng";
             }            $product->save();
