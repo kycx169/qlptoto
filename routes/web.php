@@ -47,3 +47,4 @@ Route::get('/product-index','ProductController@index')->name('product-index');
 Route::get('/add-to-cart/{id}','ProductController@getAddToCart')->name('addToCart');
 Route::get('/del-cart/{id}','ProductController@getDelCart')->name('delCart');
 Route::get('/xoasession','ProductController@xoasession')->name('xoasession');
+Route::post('/bill','ProductController@createBill')->name('bill');

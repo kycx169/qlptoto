@@ -32,6 +32,7 @@ class ProductController extends Controller
         if(Session('cart')){
             $oldCart = Session::get('cart');
             $cart = new Cart($oldCart);
+//            dd($cart);
             return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
         }
         return view('product.release',compact('all_product','users'));
@@ -52,11 +53,20 @@ class ProductController extends Controller
     {
         $oldCart = Session::has('cart') ? Session::get('cart'):null;
         $cart = new Cart($oldCart);
-        $cart->reduceByOne($id);
+        $cart->removeItem($id);
         Session::put('cart',$cart);
+//        dd($cart);
         return redirect()->route('product-release');
     }
 
+    public function createBill(Request $request){
+        $employee = Session::get('name');
+        $customer = $request->name;
+
+        DB::table('bill')
+            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
+        return "OK";
+    }
     public function xoasession()
     {
         Session::forget('cart');
