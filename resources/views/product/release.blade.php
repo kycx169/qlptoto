@@ -19,12 +19,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <input type="button" id="btnPrint" value="Print" />
+                    <button id="abc">ádads</button>
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-print" aria-hidden="true"></i> In Hóa Đơn</button>
                 </div>
             </div>
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <!-- general form elements -->
                     <div class="box box-primary" style="height: 500px">
                         <div class="box-header with-border">
@@ -69,7 +70,7 @@
                 </div>
                 <!--/.col (left) -->
                 <!-- right column -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <!-- Horizontal Form -->
                     <div class="box box-info" style="height: 500px">
                         <div class="box-header with-border">
@@ -185,6 +186,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3">Tên khách hàng:</label>
                         <div class="col-sm-9">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <input type="text" class="form-control" id="customername" placeholder="Tên khách hàng">
                         </div>
                     </div>
@@ -200,11 +202,6 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
         var name = $('#customername').val();
         $('.print-bill').click(function () {
             $('#myModal').modal('hide');
@@ -230,40 +227,16 @@
                 window.frames["frame1"].focus();
                 window.frames["frame1"].print();
                 frame1.remove();
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    url:'/bill?name='+name,
+                    success:function(data){
+//                        $("#msg").html(data.msg);
+                        console.log('ok');
+                    }
+                });
             }, 500);
         });
-
-        $.ajax({
-            type: 'POST',
-            url: "/bill?name="+name,
-            data:'_token = <?php echo csrf_token() ?>',
-            success: function(msg){
-                alert('wow' + msg);
-            }
-        });
-        {{--$("#btnPrint").click(function () {--}}
-            {{--var contents = $(".bill-contents").html();--}}
-            {{--var frame1 = $('<iframe />');--}}
-            {{--frame1[0].name = "frame1";--}}
-            {{--frame1.css({ "position": "absolute", "top": "-1000000px" });--}}
-            {{--$("body").append(frame1);--}}
-            {{--var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;--}}
-            {{--frameDoc.document.open();--}}
-            {{--//Create a new HTML document.--}}
-            {{--frameDoc.document.write('<html><head><title>DIV Contents</title>');--}}
-            {{--frameDoc.document.write('</head><body>');--}}
-            {{--//Append the external CSS file.--}}
-            {{--frameDoc.document.write('<link href="{{url('css/print_style.css')}}" rel="stylesheet" type="text/css" />');--}}
-            {{--//Append the DIV contents.--}}
-            {{--frameDoc.document.write(contents);--}}
-            {{--frameDoc.document.write('</body></html>');--}}
-            {{--frameDoc.document.close();--}}
-            {{--setTimeout(function () {--}}
-                {{--window.frames["frame1"].focus();--}}
-                {{--window.frames["frame1"].print();--}}
-                {{--frame1.remove();--}}
-            {{--}, 500);--}}
-        {{--});--}}
     });
 </script>
 @endsection
