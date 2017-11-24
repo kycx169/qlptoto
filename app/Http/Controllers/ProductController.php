@@ -67,10 +67,12 @@ class ProductController extends Controller
     public function createBill(Request $request){
         $employee = Session::get('name');
         $customer = $request->name;
-
-        DB::table('bill')
-            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
-        return "OK";
+//        DB::table('bill')
+//            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
+        DB::table('bill')->insert(
+            ['employee_name' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
+        );
+        return "ok";
     }
     public function xoasession()
     {
