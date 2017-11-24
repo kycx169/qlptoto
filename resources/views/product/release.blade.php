@@ -226,7 +226,7 @@
             var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
             frameDoc.document.open();
             //Create a new HTML document.
-            frameDoc.document.write('<html><head><title>DIV Contents</title>');
+            frameDoc.document.write('<html><head><title></title>');
             frameDoc.document.write('</head><body>');
             //Append the external CSS file.
             frameDoc.document.write('<link href="{{url('css/print_style.css')}}" rel="stylesheet" type="text/css" />');
@@ -239,7 +239,6 @@
                 window.frames["frame1"].print();
                 frame1.remove();
                 $.ajax({
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     url:'bill?name='+name+"&time="+time,
                     success:function(data){
                         window.location.reload();
