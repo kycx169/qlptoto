@@ -18,8 +18,6 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <input type="button" id="btnPrint" value="Print" />
-                    <button id="abc">ádads</button>
                     <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-print" aria-hidden="true"></i> In Hóa Đơn</button>
                 </div>
             </div>
@@ -129,7 +127,7 @@
             <p>Địa chỉ</p>
             <p>Số điện thoại</p><br>
             <p class="cus-name">Tên khách hàng: </p>
-            Ngày giờ xuất kho: {{date('Y-m-d H:i:s')}}
+            Ngày giờ xuất kho: <span class="datetime"></span>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -201,12 +199,25 @@
     </div>
 </div>
 <script type="text/javascript">
+    // console.log(getdatetime());
+    function getdatetime(){
+        var d = new Date();
+        var gio = d.getHours();
+        var phut = d.getMinutes();
+        var giay = d.getSeconds();
+        var ngay = d.getDate();
+        var thang = d.getMonth()+1;
+        var nam = d.getFullYear();
+        return gio+":"+phut+":"+giay+" "+ngay+"/"+thang+"/"+nam;
+    }
     $(function () {
         var name = $('#customername').val();
         $('.print-bill').click(function () {
             $('#myModal').modal('hide');
             var name = $('#customername').val();
+            var time = getdatetime();
             $('.cus-name').append(name);
+            $('.datetime').append(time);
             var contents = $(".bill-contents").html();
             var frame1 = $('<iframe />');
             frame1[0].name = "frame1";
@@ -229,13 +240,13 @@
                 frame1.remove();
                 $.ajax({
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    url:'/bill?name='+name,
+                    url:'bill?name='+name+"&time="+time,
                     success:function(data){
-//                        $("#msg").html(data.msg);
-                        console.log('ok');
+                        window.location.reload();
                     }
                 });
             }, 500);
+
         });
     });
 </script>

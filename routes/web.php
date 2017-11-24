@@ -48,3 +48,4 @@ Route::get('/add-to-cart/{id}','ProductController@getAddToCart')->name('addToCar
 Route::get('/del-cart/{id}','ProductController@getDelCart')->name('delCart');
 Route::get('/xoasession','ProductController@xoasession')->name('xoasession');
 Route::get('/bill','ProductController@createBill')->name('bill');
+Route::get('/list-bill','ProductController@getListBill')->name('getListBill');
