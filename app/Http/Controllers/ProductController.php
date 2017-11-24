@@ -70,10 +70,11 @@ class ProductController extends Controller
 //        DB::table('bill')
 //            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
         DB::table('bill')->insert(
-            ['employee_name' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
+            ['employees_name_created' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
         );
         return "ok";
     }
+
     public function xoasession()
     {
         Session::forget('cart');
@@ -94,12 +95,12 @@ class ProductController extends Controller
             return redirect() ->route('product-import');
         }
 
-        if(Session('cart')){
-            $oldCart = Session::get('cart');
-            $cart = new Cart($oldCart);
-//            dd($cart);
-            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
-        }
+//        if(Session('cart')){
+//            $oldCart = Session::get('cart');
+//            $cart = new Cart($oldCart);
+////            dd($cart);
+//            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
+//        }
 
         return view('product.import',compact('all_product','users'));
     }

@@ -16,9 +16,7 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <input type="button" id="btnPrint" value="Print" />
-                    <button id="abc">ádads</button>
-                    <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-print" aria-hidden="true"></i> In Hóa Đơn</button>
+
                 </div>
             </div>
             <div class="row">
@@ -119,6 +117,10 @@
                                 @endif
                             @endif
                         </table>
+                        @if(isset($totalPrice))
+                        <button class="btn btn-danger pull-right" style="color: #ffffff; margin-left: 10px"><a href="{{url(route('xoasession'))}}" aria-hidden="true">Hủy đơn hàng</a></button>
+                        <button type="submit" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-print" aria-hidden="true"></i>Thanh toán</button>
+                        @endif
                     </div>
                     <!-- /.box -->
                 </div>
@@ -184,7 +186,7 @@
                 <h4 class="modal-title">Điền thông tin</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+            <form class="form-horizontal" >
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="control-label col-sm-3">Tên khách hàng:</label>
@@ -195,7 +197,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success print-bill">In hoá đơn</button>
+                <button type="button" class="btn btn-success print-bill"><a href="{{ route('xoasession') }}">In hoá đơn</a></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </form>
