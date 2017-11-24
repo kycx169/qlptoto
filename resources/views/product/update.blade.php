@@ -29,15 +29,23 @@
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
-			                  <label>Đơn giá: </label>
-			                  <input type="text" class="form-control" id="user" value="{{$product->dongia}}" name="dongia" required>
+                                <div class="row">
+                                    <label class="col-md-3">Đơn giá: </label>
+                                    <div class="col-md-6">
+                                    <input type="number" class="form-control" id="user" value="{{$product->dongia}}" name="dongia" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{--<input readonly value="Đơn vị">--}}
+                                        <span>000 VNĐ</span>
+                                    </div>
+                                </div>
                               <label class="err1 label label-danger"></label>
 			                </div>
 
-                              <img id="imgloaded" src="{{url($product->avatar)}}" style="width: 50px; height: 50px;">
+                              <img id="imgloaded" src="{{url($product->avatar)}}" style="width: 100px; height: 100px;">
                               <div class="form-group">
                                   <label>Chọn hình ảnh mới: </label>
-                                  <input type="file" id="exampleInputFile" name="avatar" accept="image/*" >
+                                  <input style="width: 70%" type="file" id="exampleInputFile" name="avatar" accept="image/*" >
                               </div>
 			                <div class="form-group">
                               <label>Trạng thái: </label>

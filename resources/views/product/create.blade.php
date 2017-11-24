@@ -15,9 +15,9 @@
         <section class="content container-fluid">
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <!-- general form elements -->
-                    <div class="box box-primary" style="height: 500px">
+                    <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Thêm sản phẩm</h3>
                         </div>
@@ -30,41 +30,37 @@
                         {{--<form class="form-horizontal" action="{{ url(route('product-create')) }}" enctype="multipart/form-data" method="POST">--}}
                             <form action="{{ url(route('product-create')) }}" enctype="multipart/form-data" method="POST">
                                 {{ csrf_field() }}
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" >Tên sản phẩm:</label>
-                                <div class="col-sm-5">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="control-label" >Tên sản phẩm:</label>
                                     <input type="text" class="form-control" id="" placeholder=" " name="product_name" required>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" >Loại sản phẩm:</label>
-                                <select name="type" required>
-                                    <option value=" " selected>---Chọn---</option>
-                                @foreach($product_type as $pt)
-                                        <option>{{$pt->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" >Số lượng:</label>
-                                <div class="col-sm-5">
-                                    <input type="number" class="form-control" id="" placeholder=" " name="number" required>
+                                <div class="form-group">
+                                    <label class="control-label" >Loại sản phẩm: </label>
+                                    <select name="type" required>
+                                        <option value=" " selected>---Chọn---</option>
+                                        @foreach($product_type as $pt)
+                                            <option>{{$pt->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" >Ảnh sản phẩm:</label>
-                                <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label class="control-label" >Ảnh sản phẩm:</label>
                                     <input type="file" class="form-control" accept="image/*" name="avatar">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" >Đơn giá:</label>
-                                <div class="col-sm-5">
-                                    <input type="number" class="form-control" id="" placeholder="VNĐ" name="dongia">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-md-3">Đơn giá: </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="dongia">
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{--<input readonly value="Đơn vị">--}}
+                                            <span>000 VNĐ</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-default">Submit</button>
                                 </div>
                             </div>

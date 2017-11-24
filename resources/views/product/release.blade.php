@@ -22,7 +22,7 @@
             </div>
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <!-- general form elements -->
                     <div class="box box-primary" style="height: 500px">
                         <div class="box-header with-border">
@@ -41,7 +41,7 @@
                                 <th>Hình sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
-                                <th>Đơn giá</th>
+                                <th>Giá bán</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -57,7 +57,7 @@
                                     <td>{{$pro->dongia}}</td>
                                     <td>
                                         @if($pro->number>0)
-                                             <a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i>  Thêm vào giỏ hàng</a>
+                                             <a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i> Thêm sản phẩm</a>
                                         @else
                                              <span class="label label-danger">Hết hàng</span>
                                         @endif
@@ -72,7 +72,7 @@
                 </div>
                 <!--/.col (left) -->
                 <!-- right column -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <!-- Horizontal Form -->
                     <div class="box box-info" style="height: 500px">
                         <div class="box-header with-border">
@@ -85,7 +85,7 @@
                                 <th>STT</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
-                                <th>Đơn giá</th>
+                                <th>Giá bán</th>
                                 <th>Tổng tiền</th>
                                 <th>Action</th>
                             </tr>
@@ -138,7 +138,7 @@
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Đơn vị tính</th>
-                    <th>Đơn giá</th>
+                    <th>Giá bán</th>
                     <th>Tổng tiền</th>
                 </tr>
                 </thead>

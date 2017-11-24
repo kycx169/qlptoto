@@ -139,7 +139,8 @@ class ProductController extends Controller
 
     public function createproduct(Request $request) {
         $name = $request->product_name;
-        $number = $request->number;
+//        $number = $request->number;
+        $type = $request->type;
         $dongia = $request->dongia;
         $avatar = $request->avatar;
         $filename = "";
@@ -156,10 +157,9 @@ class ProductController extends Controller
         }
         $product = new Product();
         $product->name = $name;
-        $product->number = $number;
-        if ($number == 0) {
-            $product->status = 'Hết hàng';
-        }
+        $product->number = 0;
+        $product->type = $type;
+        $product->status = 'Hết hàng';
         $product->avatar = 'img/'.$filename;
         $product->dongia = $dongia;
         $product->save();

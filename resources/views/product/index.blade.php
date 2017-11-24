@@ -26,15 +26,15 @@
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="box box-primary">
-                        <div class="row">
-                            <div class="box-header with-border col-md-6">
+                        {{--<div class="row">--}}
+                            {{--<div class="box-header with-border col-md-6">--}}
                                 <h3 class="box-title">Danh sách sản phẩm</h3>
-                            </div>
-                            <div class="box-header with-border col-md-6">
-                                <h3 class="box-title"><a href="{{route('index')}}">Danh sách loại sản phẩm</a></h3>
-                            </div>
+                            {{--</div>--}}
+                            {{--<div class="box-header with-border col-md-6">--}}
+                                {{--<h3 class="box-title"><a href="{{route('index')}}">Danh sách loại sản phẩm</a></h3>--}}
+                            {{--</div>--}}
 
-                        </div>
+                        {{--</div>--}}
                         @if(session('thongbao'))
                             <div class="alert alert-success thongbao">
                                 {{session('thongbao')}}
@@ -44,11 +44,11 @@
                         <table id="pdf" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>STT</th>
+                                <th style="width: 5px" >STT</th>
+                                <th>Ảnh sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
                                 <th>Đơn giá</th>
-                                <th>Ảnh sản phẩm</th>
                                 <th>Tình trạng</th>
                                 <th class="hide-nhanvien">Action</th>
                             </tr>
@@ -57,11 +57,11 @@
                             <?php $i = 1; ?>
                             @foreach($product as $p)
                             <tr>
-                                <td>{{$i++}}</td>
+                                <td style="width: 5px" >{{$i++}}</td>
+                                <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=100 width=100></td>
                                 <td>{{$p->name}}</td>
                                 <td>{{$p->number}}</td>
                                 <td>{{$p->dongia}}</td>
-                                <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=70 width=70></td>
                                 <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td>
                                 <td class="hide-nhanvien">
                                     <a href="{{url(route('updateProduct',$p->id))}}"><span class="label label-warning">Sửa</span> </a>|

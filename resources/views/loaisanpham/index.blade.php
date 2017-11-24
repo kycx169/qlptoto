@@ -17,7 +17,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Quản lý loại sản phẩm
+                Quản lý kho hàng
                 <!-- <small>Optional description</small> -->
             </h1>
             <ol class="breadcrumb">
@@ -34,18 +34,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <!-- general form elements -->
                     <div class="box box-primary">
-                        <div class="row">
-                            <div class="box-header with-border col-md-6">
-                                <h3 class="box-title"><a href="{{route('product-index')}}">Danh sách sản phẩm</a></h3>
-                            </div>
-                            <div class="box-header with-border col-md-6">
+                        {{--<div class="row">--}}
+                            {{--<div class="box-header with-border col-md-6">--}}
+                                {{--<h3 class="box-title"><a href="{{route('product-index')}}">Danh sách sản phẩm</a></h3>--}}
+                            {{--</div>--}}
+                            {{--<div class="box-header with-border col-md-6">--}}
                                 <h3 class="box-title">Danh sách loại sản  phẩm</h3>
-                            </div>
+                            {{--</div>--}}
 
-                        </div>
+                        {{--</div>--}}
                         @if(session('thongbao'))
                             <div class="alert alert-success thongbao"> 
 	                           {{session('thongbao')}}
