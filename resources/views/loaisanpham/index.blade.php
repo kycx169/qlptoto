@@ -65,7 +65,7 @@
                         	@foreach($types as $type)
                             <tr>
                                 <td>{{++$i}}</td>
-                                <td class="pull-left">{{$type->name}}</td>
+                                <td class="pull-left" style="text-transform: capitalize;">{{$type->name}}</td>
                                 <td class="hide-nhanvien">
                                 	<a href="{{url(route('updateType',$type->id))}}"><span class="label label-warning">Sửa</span> </a>|
                                 	<a href="{{url(route('deleteType',$type->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>

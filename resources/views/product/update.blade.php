@@ -5,7 +5,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Quản lý sản phẩm
+                Quản lý kho hàng
                 <!-- <small>Optional description</small> -->
             </h1>
         </section>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         {{--<input readonly value="Đơn vị">--}}
-                                        <span>000 VNĐ</span>
+                                        <span> VNĐ</span>
                                     </div>
                                 </div>
                               <label class="err1 label label-danger"></label>

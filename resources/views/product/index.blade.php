@@ -48,7 +48,8 @@
                                 <th>Ảnh sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 <th>Số lượng</th>
-                                <th>Đơn giá</th>
+                                <th>Giá nhập</th>
+                                <th>Giá bán</th>
                                 <th>Tình trạng</th>
                                 <th class="hide-nhanvien">Action</th>
                             </tr>
@@ -59,8 +60,9 @@
                             <tr>
                                 <td style="width: 5px" >{{$i++}}</td>
                                 <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=100 width=100></td>
-                                <td>{{$p->name}}</td>
+                                <td style="text-transform: capitalize;">{{$p->name}}</td>
                                 <td>{{$p->number}}</td>
+                                <td>{{$p->gianhap}}</td>
                                 <td>{{$p->dongia}}</td>
                                 <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td>
                                 <td class="hide-nhanvien">

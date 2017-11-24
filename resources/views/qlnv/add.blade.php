@@ -34,7 +34,7 @@
 			              <div class="box-body">
 			                <div class="form-group">
 			                  <label>Tên đăng nhập: </label>
-			                  <input type="text" class="form-control" id="user" pattern="[A-z]{11}" title="Tên đăng nhập chỉ chứa kí tự và không quá 10 kí tự" placeholder="Tên đăng nhập" name="user" required>
+			                  <input type="text" class="form-control" id="user" title="Tên đăng nhập chỉ chứa kí tự và không quá 10 kí tự" placeholder="Tên đăng nhập" name="user" required>
 			                  <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
@@ -44,7 +44,7 @@
 			                </div>
 			                <div class="form-group">
 			                  <label>Tên nhân viên: </label>
-			                  <input type="text" class="form-control" id="username" min="5" max="40" pattern="[A-z]" title="Tên nhân viên chỉ chứa kí tự" placeholder="Tên đăng nhập" name="username" required>
+			                  <input type="text" class="form-control" id="username" min="5" max="40" placeholder="Tên đăng nhập" name="username" required>
                               <label class="err3 label label-danger"></label>
 			                </div>
 			                <div class="form-group">

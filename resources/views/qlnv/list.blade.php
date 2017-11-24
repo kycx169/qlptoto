@@ -66,7 +66,7 @@
                                 <td>{{++$i}}</td>
                                 <td><img src="{{url($user->avatar)}}" alt="avatar" class="img-circle" height="34px" width="34px"></td>
                                 <td>{{$user->user}}</td>
-                                <td>{{$user->name}}</td>
+                                <td style="text-transform: capitalize;">{{$user->name}}</td>
                                 <td>{{$user->birth_day}}</td>
                                 <td>{{$user->address}}</td>
                                 <td>{{($user->role) ==1 ? "Quản trị viên" : "Nhân viên"}}</td>

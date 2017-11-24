@@ -49,7 +49,6 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($products,$products->id);
         $request->session()->put('cart',$cart);
-//        dd($request->session()->get('cart'));
         $products->decrement('number');
         return redirect()->route('product-release');
     }
@@ -90,7 +89,14 @@ class ProductController extends Controller
             $product->status = "Còn hàng";
             $product->save();
 
-            return redirect() ->route('product-index');
+            return redirect() ->route('product-import');
+        }
+
+        if(Session('cart')){
+            $oldCart = Session::get('cart');
+            $cart = new Cart($oldCart);
+//            dd($cart);
+            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
         }
 
         return view('product.import',compact('all_product','users'));

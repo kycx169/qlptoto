@@ -4,7 +4,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Nhập Hàng
+               Quản lý kho hàng
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -13,6 +13,11 @@
         </section>
         <!-- Main content -->
         <section class="content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-primary pull-right" href="{{url(route('index'))}}">Loại sản phẩm</a>
+                </div>
+            </div>
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-6">
@@ -32,20 +37,24 @@
                                 {{ csrf_field() }}
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="control-label" >Tên sản phẩm:</label>
+                                    <label>Tên sản phẩm:</label>
                                     <input type="text" class="form-control" id="" placeholder=" " name="product_name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" >Loại sản phẩm: </label>
-                                    <select name="type" required>
-                                        <option value=" " selected>---Chọn---</option>
-                                        @foreach($product_type as $pt)
-                                            <option>{{$pt->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="row">
+                                        <label class="col-md-3">Loại sản phẩm: </label>
+                                        <div class="col-md-6">
+                                            <select name="type" required>
+                                                <option value=" " selected>---Chọn---</option>
+                                                @foreach($product_type as $pt)
+                                                    <option>{{$pt->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" >Ảnh sản phẩm:</label>
+                                    <label>Ảnh sản phẩm:</label>
                                     <input type="file" class="form-control" accept="image/*" name="avatar">
                                 </div>
                                 <div class="form-group">
@@ -56,7 +65,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             {{--<input readonly value="Đơn vị">--}}
-                                            <span>000 VNĐ</span>
+                                            <span> VNĐ</span>
                                         </div>
                                     </div>
                                 </div>
