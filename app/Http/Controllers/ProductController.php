@@ -49,6 +49,8 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($products,$products->id);
         $request->session()->put('cart',$cart);
+//        dd($request->session()->get('cart'));
+        $products->decrement('number');
         return redirect()->route('product-release');
     }
 
@@ -56,9 +58,10 @@ class ProductController extends Controller
     {
         $oldCart = Session::has('cart') ? Session::get('cart'):null;
         $cart = new Cart($oldCart);
+        Product::find($id)->increment('number', $cart->items[$id]['qty'] );;
         $cart->removeItem($id);
         Session::put('cart',$cart);
-//        dd($cart);
+
         return redirect()->route('product-release');
     }
 
