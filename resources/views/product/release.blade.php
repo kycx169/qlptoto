@@ -197,7 +197,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success print-bill"><a href="{{ route('xoasession') }}">In hoá đơn</a></button>
+                <button type="button" class="btn btn-success print-bill">In hoá đơn</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </form>

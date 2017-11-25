@@ -67,10 +67,13 @@ class ProductController extends Controller
     public function createBill(Request $request){
         $employee = Session::get('name');
         $customer = $request->name;
-//        DB::table('bill')
+        dd($employee);
+        $current_date = date('Y-m-d');
+//        $bill = DB::table('bill')->get();
 //            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
         DB::table('bill')->insert(
-            ['employees_name_created' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
+            ['employees_name_created' => $employee,'customer_name' => $customer,
+                'total_price' => Session::get('cart')->totalPrice, 'created_date' => $current_date]
         );
         return "ok";
     }
