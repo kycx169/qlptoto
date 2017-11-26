@@ -47,11 +47,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 @else 
 <script type="text/javascript">
-    {{--$(document).ready(function(){--}}
-         {{--var check = {{Session::get('role')}};--}}
-         {{--if(check==1){--}}
-                {{--$('.hide-nhanvien').hide();--}}
-            {{--}--}}
-    {{--});--}}
+    $(document).ready(function(){
+         var check = {{Session::get('role')}};
+         if(check==1){
+                $('.hide-nhanvien').hide();
+            }
+    });
 </script>
 @endif

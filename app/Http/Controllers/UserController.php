@@ -16,7 +16,8 @@ class UserController extends Controller
     }
 
     public function trangchu()
-    {   
+    {
+
         return view('trangchu');
     }
 

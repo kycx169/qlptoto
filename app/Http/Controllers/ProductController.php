@@ -22,11 +22,7 @@ class ProductController extends Controller
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
             $product = Product::find($product_id);
-            if ($product->number > $request->number) {
-                $product->number -= $request->number;
-            }else {
-                return redirect()->back()->with('loi','Số lượng hàng trong kho không đủ !');
-            }
+            $product->number -= $request->number;
             if ($product->number == 0) {
                 $product->status = "Hết hàng";
             }            $product->save();
@@ -49,6 +45,7 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($products,$products->id);
         $request->session()->put('cart',$cart);
+//        dd($request->session()->get('cart'));
         $products->decrement('number');
         return redirect()->route('product-release');
     }
@@ -67,15 +64,19 @@ class ProductController extends Controller
     public function createBill(Request $request){
         $employee = Session::get('name');
         $customer = $request->name;
-        dd($employee);
-        $current_date = date('Y-m-d');
-//        $bill = DB::table('bill')->get();
+        $time = $request->time;
+//        DB::table('bill')
 //            ->insert(['employees_name_created' => $employee, 'customer_name' => $customer ]);
         DB::table('bill')->insert(
-            ['employees_name_created' => $employee,'customer_name' => $customer,
-                'total_price' => Session::get('cart')->totalPrice, 'created_date' => $current_date]
+            ['created_date'=>$time,'employee_name' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
         );
+        Session::forget('cart');
         return "ok";
+    }
+
+    public function getListBill(){
+        $bills=DB::table('bill')->get();
+        return view('product.list_bill',compact('bills'));
     }
 
     public function xoasession()
@@ -97,13 +98,6 @@ class ProductController extends Controller
 
             return redirect() ->route('product-import');
         }
-
-//        if(Session('cart')){
-//            $oldCart = Session::get('cart');
-//            $cart = new Cart($oldCart);
-////            dd($cart);
-//            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
-//        }
 
         return view('product.import',compact('all_product','users'));
     }

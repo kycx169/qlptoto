@@ -27,11 +27,6 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Danh sách sản phẩm</h3>
                         </div>
-                        @if(session('loi'))
-                            <div class="alert alert-danger thongbao">
-                                {{session('loi')}}
-                            </div>
-                        @endif
                         <!-- /.box-header -->
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -134,7 +129,7 @@
             <p>Địa chỉ</p>
             <p>Số điện thoại</p><br>
             <p class="cus-name">Tên khách hàng: </p>
-            Ngày giờ xuất kho: {{date('Y-m-d H:i:s')}}
+            Ngày giờ xuất kho: <span class="datetime"></span>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -186,7 +181,7 @@
                 <h4 class="modal-title">Điền thông tin</h4>
             </div>
             <div class="modal-body">
-            <form class="form-horizontal" >
+                <form class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label class="control-label col-sm-3">Tên khách hàng:</label>
@@ -206,12 +201,25 @@
     </div>
 </div>
 <script type="text/javascript">
+    // console.log(getdatetime());
+    function getdatetime(){
+        var d = new Date();
+        var gio = d.getHours();
+        var phut = d.getMinutes();
+        var giay = d.getSeconds();
+        var ngay = d.getDate();
+        var thang = d.getMonth()+1;
+        var nam = d.getFullYear();
+        return gio+":"+phut+":"+giay+" "+ngay+"/"+thang+"/"+nam;
+    }
     $(function () {
         var name = $('#customername').val();
         $('.print-bill').click(function () {
             $('#myModal').modal('hide');
             var name = $('#customername').val();
+            var time = getdatetime();
             $('.cus-name').append(name);
+            $('.datetime').append(time);
             var contents = $(".bill-contents").html();
             var frame1 = $('<iframe />');
             frame1[0].name = "frame1";
@@ -220,7 +228,7 @@
             var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
             frameDoc.document.open();
             //Create a new HTML document.
-            frameDoc.document.write('<html><head><title>DIV Contents</title>');
+            frameDoc.document.write('<html><head><title></title>');
             frameDoc.document.write('</head><body>');
             //Append the external CSS file.
             frameDoc.document.write('<link href="{{url('css/print_style.css')}}" rel="stylesheet" type="text/css" />');
@@ -233,11 +241,9 @@
                 window.frames["frame1"].print();
                 frame1.remove();
                 $.ajax({
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    url:'/bill?name='+name,
+                    url:'bill?name='+name+'&time='+time,
                     success:function(data){
-//                        $("#msg").html(data.msg);
-                        console.log('ok');
+                        window.location.reload();
                     }
                 });
             }, 500);
