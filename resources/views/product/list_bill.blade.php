@@ -32,7 +32,7 @@
                             <h3 class="box-title">Danh sách hóa đơn</h3>
                         </div>
                         <!-- /.box-header -->
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="pdf" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>

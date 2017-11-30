@@ -45,7 +45,6 @@
                                         <label class="col-md-3">Loại sản phẩm: </label>
                                         <div class="col-md-6">
                                             <select name="type" required>
-                                                <option value=" " selected>---Chọn---</option>
                                                 @foreach($product_type as $pt)
                                                     <option>{{$pt->name}}</option>
                                                 @endforeach
@@ -59,7 +58,19 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label class="col-md-3">Đơn giá: </label>
+                                        <label class="col-md-3">Giá nhập: </label>
+                                        <div class="col-md-6">
+                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="gianhap">
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{--<input readonly value="Đơn vị">--}}
+                                            <span> VNĐ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-md-3">Giá bán: </label>
                                         <div class="col-md-6">
                                             <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="dongia">
                                         </div>

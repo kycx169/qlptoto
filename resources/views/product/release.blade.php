@@ -51,7 +51,7 @@
                                     <td>{{$pro->dongia}}</td>
                                     <td>
                                         @if($pro->number>0)
-                                             <a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i> Thêm sản phẩm</a>
+                                             <a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</a>
                                         @else
                                              <span class="label label-danger">Hết hàng</span>
                                         @endif

@@ -30,12 +30,23 @@
 			                </div>
 			                <div class="form-group">
                                 <div class="row">
-                                    <label class="col-md-3">Đơn giá: </label>
+                                    <label class="col-md-3">Giá nhập: </label>
+                                    <div class="col-md-6">
+                                    <input type="number" class="form-control" id="user" value="{{$product->gianhap}}" name="gianhap" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span> VNĐ</span>
+                                    </div>
+                                </div>
+                              <label class="err1 label label-danger"></label>
+			                </div>
+                              <div class="form-group">
+                                <div class="row">
+                                    <label class="col-md-3">Giá bán: </label>
                                     <div class="col-md-6">
                                     <input type="number" class="form-control" id="user" value="{{$product->dongia}}" name="dongia" required>
                                     </div>
                                     <div class="col-md-3">
-                                        {{--<input readonly value="Đơn vị">--}}
                                         <span> VNĐ</span>
                                     </div>
                                 </div>

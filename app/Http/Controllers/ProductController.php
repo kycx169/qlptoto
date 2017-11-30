@@ -122,6 +122,7 @@ class ProductController extends Controller
         $number=$request->number;
         $status=$request->status;
         $dongia=$request->dongia;
+        $gianhap=$request->gianhap;
         $avatar=$request->avatar;
 
         if(isset($file))
@@ -130,11 +131,11 @@ class ProductController extends Controller
             $file->move('img',$filename);
             DB::table('product')
                 ->where('id',$id)
-                ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia,'avatar' => 'avatar/'.$filename ]);
+                ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia,'gianhap' =>$gianhap,'avatar' => 'avatar/'.$filename ]);
         }
         DB::table('product')
             ->where('id',$id)
-            ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia]);
+            ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia,'gianhap' =>$gianhap]);
         return redirect(url(route('product-index')))->with('thongbao','Sửa thành công');
     }
 
@@ -151,6 +152,7 @@ class ProductController extends Controller
 //        $number = $request->number;
         $type = $request->type;
         $dongia = $request->dongia;
+        $gianhap = $request->gianhap;
         $avatar = $request->avatar;
         $filename = "";
         $num= Product::all()->where('name',$name) ->count();
@@ -171,6 +173,7 @@ class ProductController extends Controller
         $product->status = 'Hết hàng';
         $product->avatar = 'img/'.$filename;
         $product->dongia = $dongia;
+        $product->gianhap = $gianhap;
         $product->save();
 
         return redirect(url(route('product-index')))->with('thongbao','Tạo thành công');

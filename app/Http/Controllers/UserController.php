@@ -35,7 +35,7 @@ class UserController extends Controller
      public function postLogin(Request $req)
     {   
         $user = $req->user;
-        $pass = $req->pass;
+        $pass = md5($req->pass);
         $numUser = DB::table('employees')
                 ->where('user',$user)
                 ->where('password',$pass)
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function creatUser(Request $req)
     {
     	$user=$req->user;
-    	$pass=$req->pass;
+    	$pass=md5($req->pass);
     	$username=$req->username;
     	$birthday=$req->birthday;
     	$address=$req->address;
@@ -103,7 +103,7 @@ class UserController extends Controller
 
 	public function editUser($id, Request $req){
 			$user=$req->user;
-	    	$pass=$req->pass;
+	    	$pass=md5($req->pass);
 	    	$username=$req->username;
 	    	$birthday=$req->birthday;
 	    	$address=$req->address;
