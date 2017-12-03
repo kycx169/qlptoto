@@ -18,14 +18,13 @@ class ProductController extends Controller
     public function release(Request $request) {
         $users= DB::table('employees')
             ->get();
+        $bill_number = DB::table('bill')->count() + 1; 
         $all_product = Product::all();
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
             $product = Product::find($product_id);
             $product->number -= $request->number;
-            if ($product->number == 0) {
-                $product->status = "Hết hàng";
-            }            $product->save();
+            $product->save();
 
             return redirect() ->route('product-index');
         }
@@ -33,20 +32,30 @@ class ProductController extends Controller
             $oldCart = Session::get('cart');
             $cart = new Cart($oldCart);
 //            dd($cart);
-            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product]);
+            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product, 'bill_number' => $bill_number]);
         }
-        return view('product.release',compact('all_product','users'));
+        return view('product.release',compact('all_product','users','bill_number'));
     }
 
-    public function getAddToCart(Request $request, $id)
+
+    public function getXuatNhapTon() {
+        $product = Product::all();
+        return view('product.xuatnhapton',compact('product'));
+    }
+
+    public function getAddToCart(Request $request)
     {
+        $id = $request->id;
+        $number = $request->number;
         $products = Product::find($id);
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($products,$products->id);
+        $cart->add($products,$products->id, $number);
         $request->session()->put('cart',$cart);
 //        dd($request->session()->get('cart'));
-        $products->decrement('number');
+        $products->decrement('number', $number);
+        $products->sohangxuat += $number;
+        $products->save();
         return redirect()->route('product-release');
     }
 
@@ -54,7 +63,7 @@ class ProductController extends Controller
     {
         $oldCart = Session::has('cart') ? Session::get('cart'):null;
         $cart = new Cart($oldCart);
-        Product::find($id)->increment('number', $cart->items[$id]['qty'] );;
+        Product::find($id)->increment('number', $cart->items[$id]['qty'] );
         $cart->removeItem($id);
         Session::put('cart',$cart);
 
@@ -81,6 +90,14 @@ class ProductController extends Controller
 
     public function xoasession()
     {
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+
+        foreach ($cart->items as $id => $value) {
+            Product::find($id)->increment('number', $cart->items[$id]['qty'] );
+            $cart->removeItem($id);
+        };
+        
         Session::forget('cart');
         return redirect()->route('product-release');
     }
@@ -93,7 +110,7 @@ class ProductController extends Controller
             $product_id = $request->product_id;
             $product = Product::find($product_id);
             $product->number += $request->number;
-            $product->status = "Còn hàng";
+            $product->sohangnhap += $request->number;
             $product->save();
 
             return redirect() ->route('product-import');
@@ -120,8 +137,8 @@ class ProductController extends Controller
     public function edit($id, Request $request){
         $name=$request->name;
         $number=$request->number;
-        $status=$request->status;
         $dongia=$request->dongia;
+        $gianhap=$request->gianhap;
         $avatar=$request->avatar;
 
         if(isset($file))
@@ -130,11 +147,11 @@ class ProductController extends Controller
             $file->move('img',$filename);
             DB::table('product')
                 ->where('id',$id)
-                ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia,'avatar' => 'avatar/'.$filename ]);
+                ->update(['name' => $name, 'dongia' =>$dongia,'gianhap' =>$gianhap,'avatar' => 'avatar/'.$filename ]);
         }
         DB::table('product')
             ->where('id',$id)
-            ->update(['name' => $name,'status' =>$status, 'dongia' =>$dongia]);
+            ->update(['name' => $name, 'dongia' =>$dongia,'gianhap' =>$gianhap]);
         return redirect(url(route('product-index')))->with('thongbao','Sửa thành công');
     }
 
@@ -148,9 +165,11 @@ class ProductController extends Controller
 
     public function createproduct(Request $request) {
         $name = $request->product_name;
+        $code = $request->product_code;
 //        $number = $request->number;
         $type = $request->type;
         $dongia = $request->dongia;
+        $gianhap = $request->gianhap;
         $avatar = $request->avatar;
         $filename = "";
         $num= Product::all()->where('name',$name) ->count();
@@ -166,11 +185,12 @@ class ProductController extends Controller
         }
         $product = new Product();
         $product->name = $name;
+        $product->masp = $code;
         $product->number = 0;
         $product->type = $type;
-        $product->status = 'Hết hàng';
         $product->avatar = 'img/'.$filename;
         $product->dongia = $dongia;
+        $product->gianhap = $gianhap;
         $product->save();
 
         return redirect(url(route('product-index')))->with('thongbao','Tạo thành công');

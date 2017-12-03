@@ -59,9 +59,8 @@
 			                  <label>Vai trò: </label>
 							  <select id="role" name="role" required>
 								  	<option selected>---chọn---</option>
-								@foreach($role as $item)
-									<option value="{{ $item->id }}">{{ $item->role_name }}</option>
-								@endforeach
+									<option value="0">Nhân viên</option>
+									<option value="1">Quản trị viên</option>
 							  </select>
 							</div>
 			                <div class="form-group">

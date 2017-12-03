@@ -1,0 +1,16 @@
+.buttons-excel {
+    background: green!important;
+    font-family: Arial;
+    color: #fff!important;
+}
+
+.buttons-pdf {
+    background: darkred!important;
+    font-family: Arial;
+    color: #fff!important;
+}
+.buttons-print {
+    background: cadetblue!important;
+    font-family: Arial;
+    color: #fff!important;
+}

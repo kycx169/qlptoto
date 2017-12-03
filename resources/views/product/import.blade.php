@@ -89,8 +89,15 @@
                                                 <td style="text-transform: capitalize;">{{$pro->name}}</td>
                                                 <td>{{$pro->number}}</td>
                                                 {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
-                                                <td>{{$pro->gianhap}}</td>
-                                                <td><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>
+                                                <td>{{number_format($pro->gianhap)}}</td>
+                                                {{-- <td><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td> --}}
+                                                <td>
+                                                    @if($pro->number>0)
+                                                         <span class="label label-success">Còn hàng</span>
+                                                    @else
+                                                         <span class="label label-danger">Hết hàng</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

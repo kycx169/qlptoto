@@ -51,7 +51,7 @@
                                 <th>Giá nhập</th>
                                 <th>Giá bán</th>
                                 <th>Tình trạng</th>
-                                <th class="hide-nhanvien">Action</th>
+                                {{-- <th class="hide-nhanvien">Action</th> --}}
                             </tr>
                             </thead>
                             <tbody>
@@ -62,13 +62,20 @@
                                 <td><img src="{{url($p->avatar)}}" alt="noimage" border=3 height=100 width=100></td>
                                 <td style="text-transform: capitalize;">{{$p->name}}</td>
                                 <td>{{$p->number}}</td>
-                                <td>{{$p->gianhap}}</td>
-                                <td>{{$p->dongia}}</td>
-                                <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td>
-                                <td class="hide-nhanvien">
+                                <td>{{number_format($p->gianhap)}}</td>
+                                <td>{{number_format($p->dongia)}}</td>
+                                {{-- <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td> --}}
+                                <td>
+                                    @if($p->number>0)
+                                         <span class="label label-success">Còn hàng</span>
+                                    @else
+                                         <span class="label label-danger">Hết hàng</span>
+                                    @endif
+                                </td>
+                               {{--  <td class="hide-nhanvien">
                                     <a href="{{url(route('updateProduct',$p->id))}}"><span class="label label-warning">Sửa</span> </a>|
                                     <a href="{{url(route('deleteProduct',$p->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>
-                                </td>
+                                </td> --}}
                             </tr>
                             @endforeach
                             </tbody>
