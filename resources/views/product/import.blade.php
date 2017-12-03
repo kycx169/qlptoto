@@ -18,7 +18,7 @@
         <section class="content container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="{{route('product-add')}}"><h4 class=""><span>Thêm sản phẩm</span></h4></a>
+                                <a href="{{route('product-add')}}"  class="btn btn-primary"><h4><span>Thêm sản phẩm</span></h4></a>
                             </div>
                         </div>
                         <div class="row">
@@ -29,27 +29,36 @@
                                         <h3 class="box-title">Danh sách nhập hàng</h3>
                                     </div>
                                     <!-- /.box-header -->
-                                    <form class="form-horizontal" id="">
-                                      <div class="box-body">
-                                          <div class="form-group">
+                                    <form class="form-horizontal" action="{{route('postImport')}}" method="post">
+                                      {{ csrf_field() }}
+                                      <div class="box-body ">
+                                          <div class="form-group col-xs-12">
                                               <label>Người nhập:</label>
                                               <input type="text" style="width: 30%" class="form-control text-center"  value="{{Session::get('name')}}" name="user-name" readonly>
                                           </div>
-                                          <div class="form-group">
-                                                  <label>Số lượng</label>
-                                                  <input type="number" name="number" required>
+                                          <div class="add-group">
+                                            <div class="sub-add">
+                                              <div class="form-group col-xs-6">
+                                                  <label>Tên sản phẩm:</label>
+                                                      <select name="product_id[]" class="form-control" style="text-transform: capitalize;">
+                                                          @foreach($all_product as $item)
+                                                              <option value="{{$item->id}}">{{$item->name}}</option>
+                                                          @endforeach
+                                                      </select>
+                                              </div>
+                                              <div class="form-group col-xs-6">
+                                                      <label>Số lượng: </label>
+                                                      <input class="form-control" type="number" name="number[]" value="0" min="0" required>
+                                              </div>
+                                              <button type="button" class="btn btn-warning pull-right del-group"><i class="fa fa-minus"></i></button>
+                                            </div>
+                                          </div>
+                                          <div class="form-group col-xs-6">
+                                            <button type="button" class="btn btn-primary" id="add"><i class="fa fa-plus"></i></button>
                                           </div>
                                           <div class="form-group">
-                                              <label>Tên sản phẩm:</label>
-                                                  <select name="product_id" class="form-control" style="text-transform: capitalize;">
-                                                      @foreach($all_product as $item)
-                                                          <option value="{{$item->id}}">{{$item->name}}</option>
-                                                      @endforeach
-                                                  </select>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="col-sm-offset-2 col-sm-10">
-                                                  <button type="submit" class="btn btn-default">Xác nhận</button>
+                                              <div class="col-sm-10">
+                                                  <button type="submit" class="btn btn-success">Xác nhận</button>
                                               </div>
                                           </div>
                                       </div>
@@ -101,7 +110,6 @@
                                             </tr>
                                         @endforeach
                                         </tbody>
-
                                     </table>
                                 </div>
                                 <!-- /.box -->
@@ -110,4 +118,12 @@
         </section>
         <!-- /.content -->
     </div>
+    <script type="text/javascript">
+       $('#add').click(function(){
+            $('.add-group').append('<div class="sub-add"><div class="form-group col-xs-6"><label>Tên sản phẩm:</label><select name="product_id[]" class="form-control" style="text-transform: capitalize;">@foreach($all_product as $item)<option value="{{$item->id}}">{{$item->name}}</option>@endforeach</select></div><div class="form-group col-xs-6"><label>Số lượng: </label><input class="form-control" type="number" name="number[]" value="0" min="0" required></div><button type="button" class="btn btn-warning pull-right del-group"><i class="fa fa-minus"></i></button></div>');
+       });
+       $('.add-group').on('click','.del-group',function() {
+          $(this).parent().remove();
+      });
+    </script>
 @endsection

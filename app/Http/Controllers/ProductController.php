@@ -102,24 +102,37 @@ class ProductController extends Controller
         return redirect()->route('product-release');
     }
 
-    public function import(Request $request) {
-        $users= DB::table('employees')
-            ->get();
+    public function import() {
+       
         $all_product = Product::all();
-        if (isset($request->product_id)) {
-            $product_id = $request->product_id;
-            $product = Product::find($product_id);
-            $product->number += $request->number;
-            $product->sohangnhap += $request->number;
-            $product->save();
+        // if (isset($request->product_id)) {
+        //     $product_id = $request->product_id;
+        //     $product = Product::find($product_id);
+        //     $product->number += $request->number;
+        //     $product->sohangnhap += $request->number;
+        //     $product->save();
 
-            return redirect() ->route('product-import');
-        }
+        //     return redirect() ->route('product-import');
+        // }
 
-        return view('product.import',compact('all_product','users'));
+        return view('product.import',compact('all_product'));
     }
 
-
+    public function postImport(Request $request){
+        $pro_id = $request->product_id;
+        $pro_num = $request->number;
+        $pro_arr = [];
+        for($i=0; $i < count($pro_id); $i++) {
+            array_push($pro_arr, ["id"=>$pro_id[$i], "num" => $pro_num[$i]]);
+        }
+        foreach ($pro_arr as $pro){
+             $product = Product::find($pro["id"]);
+             $product->number += $pro["num"];
+             $product->sohangnhap += $pro["num"];
+             $product->save();
+        }
+        return redirect()->back();
+    }
     public function add() {
         $product_type = DB::table('product_type')
             ->get();
