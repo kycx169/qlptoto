@@ -36,16 +36,16 @@
                                               <input type="text" style="width: 30%" class="form-control text-center"  value="{{Session::get('name')}}" name="user-name" readonly>
                                           </div>
                                           <div class="form-group">
-                                                  <label>Số lượng</label>
-                                                  <input type="number" name="number" required>
-                                          </div>
-                                          <div class="form-group">
                                               <label>Tên sản phẩm:</label>
                                                   <select name="product_id" class="form-control" style="text-transform: capitalize;">
                                                       @foreach($all_product as $item)
                                                           <option value="{{$item->id}}">{{$item->name}}</option>
                                                       @endforeach
                                                   </select>
+                                          </div>
+                                          <div class="form-group">
+                                              <label>Số lượng</label>
+                                              <input type="number" name="number" required>
                                           </div>
                                           <div class="form-group">
                                               <div class="col-sm-offset-2 col-sm-10">
@@ -89,8 +89,15 @@
                                                 <td style="text-transform: capitalize;">{{$pro->name}}</td>
                                                 <td>{{$pro->number}}</td>
                                                 {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
-                                                <td>{{$pro->gianhap}}</td>
-                                                <td><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>
+                                                <td>{{number_format($pro->gianhap)}}</td>
+                                                {{-- <td><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td> --}}
+                                                <td>
+                                                    @if($pro->number>0)
+                                                         <span class="label label-success">Còn hàng</span>
+                                                    @else
+                                                         <span class="label label-danger">Hết hàng</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

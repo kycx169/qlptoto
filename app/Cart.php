@@ -17,7 +17,7 @@ class Cart
 			$this->totalPrice = $oldCart->totalPrice;
 		}
 	}
-    public function add($item, $id)
+    public function add($item, $id, $number)
     {
         $storeditem = ['qty' => 0, 'price' => $item->dongia, 'item' => $item];
 //        $this->totalPrice = $item->dongia;
@@ -28,11 +28,11 @@ class Cart
                 $storeditem = $this->items[$id];
             }
         }
-        $storeditem['qty']++;
+        $storeditem['qty']+=$number;
         $storeditem['price'] = $item->dongia * $storeditem['qty'];
         $this->items[$id] = $storeditem;
         $this->totalQty++;
-        $this->totalPrice +=$item->dongia;
+        $this->totalPrice +=$item->dongia * $storeditem['qty'];
     }
     public function reduceByOne($id){
         $this->items[$id]['qty']--;

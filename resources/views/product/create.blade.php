@@ -41,6 +41,10 @@
                                     <input type="text" class="form-control" id="" placeholder=" " name="product_name" required>
                                 </div>
                                 <div class="form-group">
+                                    <label>Mã sản phẩm:</label>
+                                    <input type="text" class="form-control" id="" placeholder=" " name="product_code" required>
+                                </div>
+                                <div class="form-group">
                                     <div class="row">
                                         <label class="col-md-3">Loại sản phẩm: </label>
                                         <div class="col-md-6">

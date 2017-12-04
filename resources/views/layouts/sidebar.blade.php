@@ -33,7 +33,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('product-index')}}">Quản lý sản phẩm</a></li>
-                        <li><a href="{{url(route('index'))}}">Loại sản phẩm</a></li>
+                        <li><a href="{{url(route('index'))}}">Quản lý loại sản phẩm</a></li>
+                        <li><a href="{{url(route('xuat_nhap_ton'))}}">Quản lý xuất-nhập-tồn</a></li>
                     </ul>
                 </li>
                 <li class="hide-nhanvien"><a href="{{url(route('qlnv'))}}"><i class="fa fa-user"></i> <span>Quản lý nhân viên</span></a></li>

@@ -50,7 +50,7 @@
                                 <td>{{$bill->created_date}}</td>
                                 <td>{{$bill->employee_name}}</td>
                                 <td>{{$bill->customer_name}}</td>
-                                <td>{{$bill->total_price}}</td>
+                                <td>{{number_format($bill->total_price)}} VNĐ</td>
                             </tr>
                             @endforeach
                             </tbody>

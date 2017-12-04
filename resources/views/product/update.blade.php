@@ -29,6 +29,11 @@
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
+			                  <label>Mã sản phẩm: </label>
+			                  <input type="text" class="form-control" value="{{$product->masp}}" name="masp" required>
+                              <label class="err1 label label-danger"></label>
+			                </div>
+			                <div class="form-group">
                                 <div class="row">
                                     <label class="col-md-3">Giá nhập: </label>
                                     <div class="col-md-6">
@@ -58,11 +63,11 @@
                                   <label>Chọn hình ảnh mới: </label>
                                   <input style="width: 70%" type="file" id="exampleInputFile" name="avatar" accept="image/*" >
                               </div>
-			                <div class="form-group">
-                              <label>Trạng thái: </label>
-                              <input type="text" class="form-control" id="user" value="{{$product->status}}" name="status" readonly>
-                              <label class="err1 label label-danger"></label>
-                          </div>
+			                {{--<div class="form-group">--}}
+                              {{--<label>Trạng thái: </label>--}}
+                              {{--<input type="text" class="form-control" id="user" value="{{$product->status}}" name="status" readonly>--}}
+                              {{--<label class="err1 label label-danger"></label>--}}
+                          {{--</div>--}}
 			              </div>
 			              <!-- /.box-body -->
 

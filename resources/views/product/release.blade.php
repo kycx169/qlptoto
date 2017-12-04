@@ -48,15 +48,64 @@
                                     <td>{{$pro->name}}</td>
                                     <td>{{$pro->number}}</td>
                                     {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
-                                    <td>{{$pro->dongia}}</td>
+                                    <td>{{number_format($pro->dongia)}}</td>
                                     <td>
                                         @if($pro->number>0)
-                                             <a href="{{url(route('addToCart',$pro->id))}}" class="btn btn-success"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</a>
+                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$pro->id}}"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</button>
                                         @else
                                              <span class="label label-danger">Hết hàng</span>
                                         @endif
                                     </td>
                                 </tr>
+                                <div id="myModal{{$pro->id}}" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">{{$pro->name}}</h4>
+                                      </div>
+                                      <form action="{{route('addToCart')}}" id="myform{{$pro->id}}">
+                                      <div class="modal-body">
+                                        <label class="control-label"> Số lượng: </label>
+                                        <input type="hidden" name="id" value="{{$pro->id}}">
+                                        <input type="hidden" id="proNumber{{$pro->id}}" value="{{$pro->number}}">
+                                        <input class="form-control" type="number" name="number" min="0" id="number{{$pro->id}}">
+                                        <span style="color: red" id="err{{$pro->id}}">Không đủ số lượng</span>
+                                        <span style="color: red" id="err2{{$pro->id}}">Bạn chưa nhập số lượng</span>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button id="ok{{$pro->id}}" type="button" class="btn btn-primary">Xác nhận</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                      </form>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+                                <script type="text/javascript">
+                                $('#err{{$pro->id}}, #err2{{$pro->id}}').hide();
+                                $('#ok{{$pro->id}}').click(function(){
+                                    var num{{$pro->id}} = $('#number{{$pro->id}}').val();
+                                    var pronum{{$pro->id}} = $('#proNumber{{$pro->id}}').val()
+                                    if(!num{{$pro->id}})
+                                    {
+                                        $('#err{{$pro->id}}').hide();
+                                        $('#err2{{$pro->id}}').show();
+                                    } else if(parseInt(num{{$pro->id}}) > parseInt(pronum{{$pro->id}}))
+                                    {
+                                        $('#err2{{$pro->id}}').hide();
+                                        $('#err{{$pro->id}}').show();
+                                    } else
+                                    {
+                                        $('#err{{$pro->id}}, #err2{{$pro->id}}').hide();
+                                        $('#myform{{$pro->id}}').submit();
+                                    }
+                                });
+                                </script>
                             @endforeach
                             </tbody>
 
@@ -92,8 +141,8 @@
                                     <td>{{++$i}}</td>
                                     <td>{{$prod['item']->name}}</td>
                                     <td>{{$prod['qty']}}</td>
-                                    <td>{{$prod['item']->dongia}}</td>
-                                    <td>{{$prod['price']}}</td>
+                                    <td>{{number_format($prod['item']->dongia)}}</td>
+                                    <td>{{number_format($prod['price'])}}</td>
                                     <td><a href="{{route('delCart',$prod['item']->id)}}"><span class="label label-warning">Hủy</span></a></td>
                                 </tr>
                                 @endforeach
@@ -106,14 +155,14 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="3" class="text-right">Thành tiền: </td>
-                                            <td>{{$totalPrice}}</td>
+                                            <td>{{number_format($totalPrice)}} VNĐ</td>
                                         </tr>
                                     </tfoot>
                                 @endif
                             @endif
                         </table>
                         @if(isset($totalPrice))
-                        <button class="btn btn-danger pull-right" style="color: #ffffff; margin-left: 10px"><a href="{{url(route('xoasession'))}}" aria-hidden="true">Hủy đơn hàng</a></button>
+                        <button class="btn btn-danger pull-right" style="color: #ffffff; margin-left: 10px"><a href="{{url(route('xoasession'))}}" aria-hidden="true" style="color: #fff">Hủy đơn hàng</a></button>
                         <button type="submit" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-print" aria-hidden="true"></i>Thanh toán</button>
                         @endif
                     </div>
@@ -124,20 +173,26 @@
         </section>
         <!-- /.content -->
         <div class="bill-contents" hidden>
-            <div class="text-center">Hoá đơn</div>
-            <p>Tên công ty</p>
-            <p>Địa chỉ</p>
-            <p>Số điện thoại</p><br>
-            <p class="cus-name">Tên khách hàng: </p>
-            Ngày giờ xuất kho: <span class="datetime"></span>
+            <div class="text-center">
+                <span>HÓA ĐƠN BÁN HÀNG</span><br>
+                <span>Số: {{$bill_number}}</span><br>
+                <span>Ngày {{date('d')}} tháng {{date('m')}} năm {{date('Y')}}</span><br>
+            </div>
+            <p><b>ĐƠN VỊ BÁN HÀNG : CÔNG TY TNHH CÔNG NGHỆ KỸ THUẬT THƯƠNG MẠI PHÚ LÂM</b></p>
+            <p>Địa chỉ : 46 Bạch Đằng, P.Hạ lý, Q.Hồng Bàng, Hải phòng</p>
+            <p>MST: 0201819977</p>
+            <p class="cus-name">HỌ TÊN NGƯỜI MUA HÀNG: </p>
+            <p>Địa chỉ :</p>
+            <div hidden>Ngày giờ xuất kho: <span class="datetime"></span></div>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Đơn vị tính</th>
-                    <th>Giá bán</th>
-                    <th>Tổng tiền</th>
+                    <th>STT</th>
+                    <th>TÊN HÀNG HÓA</th>
+                    <th>Đ.VỊ TÍNH</th>
+                    <th>SỐ LƯỢNG</th>
+                    <th>ĐƠN GIÁ</th>
+                    <th>THÀNH TIỀN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -145,11 +200,12 @@
                     <?php $i=0; ?>
                     @foreach($cartProducts as $prod)
                         <tr>
+                            <td>{{++$i}}</td>
                             <td>{{$prod['item']->name}}</td>
-                            <td>{{$prod['qty']}}</td>
                             <td>Chiếc</td>
-                            <td>{{$prod['item']->dongia}}</td>
-                            <td>{{$prod['price']}}</td>
+                            <td>{{$prod['qty']}}</td>
+                            <td>{{number_format($prod['item']->dongia)}} VNĐ</td>
+                            <td>{{number_format($prod['price'])}} VNĐ</td>
                         </tr>
                     @endforeach
                 @endif
@@ -158,14 +214,17 @@
             <p>Thành tiền:
                 @if(isset($totalPrice))
                     @if($totalPrice >0)
-                        <span>{{$totalPrice}}</span>
+                        <span>{{number_format($totalPrice)}} VNĐ</span>
                     @endif
                 @endif
             </p>
-            <p>Nhân viên xuất kho <br>
+            <p style="float: left"> <span style="margin-left: 15px">NGƯỜI MUA</span><br>
+                (Ký, ghi rõ họ tên) <br>
+            </p>
+            <p style="float: right"><span style="margin-left: 15px">NGƯỜI BÁN</span><br>
+                (Ký, ghi rõ họ tên) <br><br><br><br>
                 <span style="margin-left: 10px">{{Session::get('name')}}</span>
             </p><br>
-            <p style="margin-left: 15px">Xin cảm ơn</p>
         </div>
 
     </div>
@@ -202,6 +261,7 @@
 </div>
 <script type="text/javascript">
     // console.log(getdatetime());
+
     function getdatetime(){
         var d = new Date();
         var gio = d.getHours();
@@ -231,7 +291,7 @@
             frameDoc.document.write('<html><head><title></title>');
             frameDoc.document.write('</head><body>');
             //Append the external CSS file.
-            frameDoc.document.write('<link href="{{url('css/print_style.css')}}" rel="stylesheet" type="text/css" />');
+            frameDoc.document.write('<link href="{{url('css/print_style.css?v1')}}" rel="stylesheet" type="text/css" />');
             //Append the DIV contents.
             frameDoc.document.write(contents);
             frameDoc.document.write('</body></html>');

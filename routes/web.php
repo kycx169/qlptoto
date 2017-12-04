@@ -42,9 +42,10 @@ Route::post('/sua-sanpham/{id}', 'ProductController@edit')->name('editProduct');
 Route::get('/xoa-sanpham/{id}', 'ProductController@delete')->name('deleteProduct');
 
 Route::get('/product-import','ProductController@import')->name('product-import');
+Route::get('/xuat-nhap-ton','ProductController@getXuatNhapTon')->name('xuat_nhap_ton');
 Route::get('/product-release','ProductController@release')->name('product-release');
 Route::get('/product-index','ProductController@index')->name('product-index');
-Route::get('/add-to-cart/{id}','ProductController@getAddToCart')->name('addToCart');
+Route::get('/add-to-cart','ProductController@getAddToCart')->name('addToCart');
 Route::get('/del-cart/{id}','ProductController@getDelCart')->name('delCart');
 Route::get('/xoasession','ProductController@xoasession')->name('xoasession');
 Route::get('/bill','ProductController@createBill')->name('bill');
