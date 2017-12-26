@@ -64,7 +64,7 @@
                                     <div class="row">
                                         <label class="col-md-3">Giá nhập: </label>
                                         <div class="col-md-6">
-                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="gianhap">
+                                            <input type="number" step="1000" min="1000" class="form-control" id="" placeholder="VNĐ" name="gianhap" required>
                                         </div>
                                         <div class="col-md-3">
                                             {{--<input readonly value="Đơn vị">--}}
@@ -76,7 +76,7 @@
                                     <div class="row">
                                         <label class="col-md-3">Giá bán: </label>
                                         <div class="col-md-6">
-                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="dongia">
+                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="dongia" required>
                                         </div>
                                         <div class="col-md-3">
                                             {{--<input readonly value="Đơn vị">--}}
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-default">Xác nhận</button>
                                 </div>
                             </div>
                         </form>

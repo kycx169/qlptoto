@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\model\Product;
 use DB;
 use Session;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
 
     public function trangchu()
     {
-
+        $product = Product::all();
         return view('trangchu');
     }
 
@@ -107,6 +108,7 @@ class UserController extends Controller
 	    	$username=$req->username;
 	    	$birthday=$req->birthday;
 	    	$address=$req->address;
+            $role = (int)$req->role;
 	    	$file=$req->file;
             if(isset($file))
             {
@@ -115,14 +117,14 @@ class UserController extends Controller
                 DB::table('employees')
                 ->where('id',$id)
                 ->update(['user' => $user, 'password' => $pass, 'name' => $username,
-                          'birth_day' => $birthday, 'address' => $address, 'role' => 1, 
+                          'birth_day' => $birthday, 'address' => $address, 'role' => $role,
                           'avatar' => 'avatar/'.$filename
                          ]);
             }
 			DB::table('employees')
 			->where('id',$id)
 	    	->update(['user' => $user, 'password' => $pass, 'name' => $username,
-					  'birth_day' => $birthday, 'address' => $address, 'role' => 1
+					  'birth_day' => $birthday, 'address' => $address, 'role' => $role
 					 ]);
 			return redirect(url(route('qlnv')))->with('thongbao','Sửa thành công');
 	    }

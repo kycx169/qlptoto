@@ -4,10 +4,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Quản lý kho hàng
-                <!-- <small>Optional description</small> -->
-            </h1>
+            <h1>Quản lý kho hàng</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
@@ -26,20 +23,12 @@
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="box box-primary">
-                        {{--<div class="row">--}}
-                            {{--<div class="box-header with-border col-md-6">--}}
-                                <h3 class="box-title">Danh sách sản phẩm</h3>
-                            {{--</div>--}}
-                            {{--<div class="box-header with-border col-md-6">--}}
-                                {{--<h3 class="box-title"><a href="{{route('index')}}">Danh sách loại sản phẩm</a></h3>--}}
-                            {{--</div>--}}
-
-                        {{--</div>--}}
+                        <h3 class="box-title">Danh sách sản phẩm</h3>
                         @if(session('thongbao'))
                             <div class="alert alert-success thongbao">
                                 {{session('thongbao')}}
                             </div>
-                         @endif
+                        @endif
                         <!-- /.box-header -->
                         <table id="pdf" class="table table-bordered table-striped">
                             <thead>
@@ -67,7 +56,6 @@
                             </tr>
                             @endforeach
                             </tbody>
-
                         </table>
                     </div>
                     <!-- /.box -->

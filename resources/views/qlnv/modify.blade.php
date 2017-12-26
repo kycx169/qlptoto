@@ -49,7 +49,14 @@
 			                <div class="form-group">
 			                  <label>Địa chỉ: </label>
 			                  <input type="text" class="form-control" id="address" value="{{$users->address}}" name="address">
-			                </div>
+							</div>
+							  <div class="form-group">
+								  <label>Vai trò: </label>
+								  <select id="role" name="role" required>
+									  <option value="{{$users->role}}" selected>{{$users->role == 1 ? "Nhân viên" : "Quản trị viên"}}</option>
+									  <option value="{{1 - $users->role}}">{{$users->role == 1 ? "Quản trị viên" : "Nhân viên"}}</option>
+								  </select>
+							  </div>
 		                @if($users->avatar!="avatar/")
 		                	<img id="imgloaded" src="{{url($users->avatar)}}" style="width: 50px; height: 50px;">
 			            @endif

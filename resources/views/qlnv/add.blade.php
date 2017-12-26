@@ -58,9 +58,9 @@
 						    <div class="form-group">
 			                  <label>Vai trò: </label>
 							  <select id="role" name="role" required>
-								  	<option selected>---chọn---</option>
-									<option value="0">Nhân viên</option>
-									<option value="1">Quản trị viên</option>
+								  	{{--<option selected>---chọn---</option>--}}
+									<option selected value="1">Nhân viên</option>
+									<option value="0">Quản trị viên</option>
 							  </select>
 							</div>
 			                <div class="form-group">

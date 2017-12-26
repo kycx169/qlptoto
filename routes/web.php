@@ -42,6 +42,7 @@ Route::post('/sua-sanpham/{id}', 'ProductController@edit')->name('editProduct');
 Route::get('/xoa-sanpham/{id}', 'ProductController@delete')->name('deleteProduct');
 
 Route::get('/product-import','ProductController@import')->name('product-import');
+Route::post('/product-import','ProductController@postImport')->name('postImport');
 Route::get('/xuat-nhap-ton','ProductController@getXuatNhapTon')->name('xuat_nhap_ton');
 Route::get('/product-release','ProductController@release')->name('product-release');
 Route::get('/product-index','ProductController@index')->name('product-index');

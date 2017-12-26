@@ -34,6 +34,11 @@
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
+			                  <label>Loại sản phẩm: </label>
+			                  <input type="text" class="form-control" value="{{$product->type}}" name="loaisp" required>
+                              <label class="err1 label label-danger"></label>
+			                </div>
+			                <div class="form-group">
                                 <div class="row">
                                     <label class="col-md-3">Giá nhập: </label>
                                     <div class="col-md-6">

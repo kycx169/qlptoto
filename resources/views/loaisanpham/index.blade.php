@@ -37,15 +37,7 @@
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="box box-primary">
-                        {{--<div class="row">--}}
-                            {{--<div class="box-header with-border col-md-6">--}}
-                                {{--<h3 class="box-title"><a href="{{route('product-index')}}">Danh sách sản phẩm</a></h3>--}}
-                            {{--</div>--}}
-                            {{--<div class="box-header with-border col-md-6">--}}
                                 <h3 class="box-title">Danh sách loại sản  phẩm</h3>
-                            {{--</div>--}}
-
-                        {{--</div>--}}
                         @if(session('thongbao'))
                             <div class="alert alert-success thongbao"> 
 	                           {{session('thongbao')}}
