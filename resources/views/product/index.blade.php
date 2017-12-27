@@ -41,6 +41,7 @@
                                 <th>Tên sản phẩm</th>
                                 <th>Loại xe</th>
                                 <th>Số lượng</th>
+                                <th>Vị trí</th>
                                 <th>Giá nhập</th>
                                 <th>Giá bán</th>
                                 <th>Tình trạng</th>
@@ -57,6 +58,7 @@
                                 <td style="text-transform: capitalize;">{{$p->name}}</td>
                                 <td style="text-transform: capitalize;">{{$p->type}}</td>
                                 <td>{{$p->number}}</td>
+                                <td>{{$p->position}}</td>
                                 <td>{{number_format($p->gianhap)}}</td>
                                 <td>{{number_format($p->dongia)}}</td>
                                 {{-- <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td> --}}

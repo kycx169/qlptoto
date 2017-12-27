@@ -34,15 +34,20 @@
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
-			                  <label>Loại sản phẩm: </label>
-			                  <input type="text" class="form-control" value="{{$product->type}}" name="loaisp" required>
+			                  <label>Loại xe: </label>
+			                  <input type="text" class="form-control" value="{{$product->position}}" name="loaisp" required>
+                              <label class="err1 label label-danger"></label>
+			                </div>
+			                <div class="form-group">
+			                  <label>Vị trí: </label>
+			                  <input type="text" class="form-control" value="{{$product->type}}" name="position" required>
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
                                 <div class="row">
                                     <label class="col-md-3">Giá nhập: </label>
                                     <div class="col-md-6">
-                                    <input type="number" class="form-control" id="user" value="{{$product->gianhap}}" name="gianhap" required>
+                                    <input type="number" class="form-control" id="user" value="{{$product->gianhap}}" name="gianhap">
                                     </div>
                                     <div class="col-md-3">
                                         <span> VNĐ</span>
@@ -54,7 +59,7 @@
                                 <div class="row">
                                     <label class="col-md-3">Giá bán: </label>
                                     <div class="col-md-6">
-                                    <input type="number" class="form-control" id="user" value="{{$product->dongia}}" name="dongia" required>
+                                    <input type="number" class="form-control" id="user" value="{{$product->dongia}}" name="dongia">
                                     </div>
                                     <div class="col-md-3">
                                         <span> VNĐ</span>
@@ -68,11 +73,6 @@
                                   <label>Chọn hình ảnh mới: </label>
                                   <input style="width: 70%" type="file" id="exampleInputFile" name="avatar" accept="image/*" >
                               </div>
-			                {{--<div class="form-group">--}}
-                              {{--<label>Trạng thái: </label>--}}
-                              {{--<input type="text" class="form-control" id="user" value="{{$product->status}}" name="status" readonly>--}}
-                              {{--<label class="err1 label label-danger"></label>--}}
-                          {{--</div>--}}
 			              </div>
 			              <!-- /.box-body -->
 

@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                        <label class="col-md-3">Loại sản phẩm: </label>
+                                        <label class="col-md-3">Loại xe: </label>
                                         <div class="col-md-6">
                                             <select name="type" required>
                                                 @foreach($product_type as $pt)
@@ -57,6 +57,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Vị trí:</label>
+                                    <input type="text" class="form-control" id="" placeholder=" " name="position">
+                                </div>
+                                <div class="form-group">
                                     <label>Ảnh sản phẩm:</label>
                                     <input type="file" class="form-control" accept="image/*" name="avatar">
                                 </div>
@@ -64,7 +68,7 @@
                                     <div class="row">
                                         <label class="col-md-3">Giá nhập: </label>
                                         <div class="col-md-6">
-                                            <input type="number" step="1000" min="1000" class="form-control" id="" placeholder="VNĐ" name="gianhap" required>
+                                            <input type="number" step="1000" class="form-control" id="" placeholder="VNĐ" name="gianhap">
                                         </div>
                                         <div class="col-md-3">
                                             {{--<input readonly value="Đơn vị">--}}
@@ -76,7 +80,7 @@
                                     <div class="row">
                                         <label class="col-md-3">Giá bán: </label>
                                         <div class="col-md-6">
-                                            <input type="number" min="1000" class="form-control" id="" placeholder="VNĐ" name="dongia" required>
+                                            <input type="number" class="form-control" id="" placeholder="VNĐ" name="dongia" >
                                         </div>
                                         <div class="col-md-3">
                                             {{--<input readonly value="Đơn vị">--}}

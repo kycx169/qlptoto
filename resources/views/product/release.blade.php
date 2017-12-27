@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <!-- general form elements -->
                     <div class="box box-primary" style="height: 500px">
                         <div class="box-header with-border">
@@ -32,26 +32,30 @@
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Hình sản phẩm</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá bán</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i=0; ?>
-                            @foreach($all_product as $pro)
-                                <tr>
-                                    <td>{{++$i}}</td>
-                                    <td><img src="{{url($pro->avatar)}}" alt="anh san pham" width="50px" height="50px"></td>
-                                    <td>{{$pro->name}}</td>
-                                    <td>{{$pro->number}}</td>
-                                    {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
-                                    <td>{{number_format($pro->dongia)}}</td>
-                                    <td>
-                                        @if($pro->number>0)
-                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$pro->id}}"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</button>
+                                    <th>Hình sản phẩm</th>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Vị trí</th>
+                                    <th>Giá bán</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i=0; ?>
+                                @foreach($all_product as $pro)
+                                    <tr>
+                                        <td>{{++$i}}</td>
+                                        <td><img src="{{url($pro->avatar)}}" alt="anh san pham" width="50px" height="50px"></td>
+                                        <td>{{$pro->masp}}</td>
+                                        <td>{{$pro->name}}</td>
+                                        <td>{{$pro->number}}</td>
+                                        <td>{{$pro->position}}</td>
+                                        {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
+                                        <td>{{number_format($pro->dongia)}}</td>
+                                        <td>
+                                            @if($pro->number>0)
+                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$pro->id}}"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</button>
                                         @else
                                              <span class="label label-danger">Hết hàng</span>
                                         @endif
@@ -115,7 +119,7 @@
                 </div>
                 <!--/.col (left) -->
                 <!-- right column -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <!-- Horizontal Form -->
                     <div class="box box-info" style="height: 500px">
                         <div class="box-header with-border">
@@ -150,6 +154,7 @@
                                 <td colspan="5">Chưa có sản phẩm nào</td>
                             @endif
                             </tbody>
+
                             @if(isset($totalPrice))
                                 @if($totalPrice >0)
                                     <tfoot>
@@ -190,6 +195,8 @@
                     <th>STT</th>
                     <th>TÊN HÀNG HÓA</th>
                     <th>Đ.VỊ TÍNH</th>
+                    <th>MÃ SẢN PHẨM</th>
+                    <th>VỊ TRÍ</th>
                     <th>SỐ LƯỢNG</th>
                     <th>ĐƠN GIÁ</th>
                     <th>THÀNH TIỀN</th>
@@ -203,6 +210,8 @@
                             <td>{{++$i}}</td>
                             <td>{{$prod['item']->name}}</td>
                             <td>Chiếc</td>
+                            <td>{{$prod['item']->masp}}</td>
+                            <td>{{$prod['item']->position}}</td>
                             <td>{{$prod['qty']}}</td>
                             <td>{{number_format($prod['item']->dongia)}} VNĐ</td>
                             <td>{{number_format($prod['price'])}} VNĐ</td>

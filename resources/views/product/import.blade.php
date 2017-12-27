@@ -84,6 +84,7 @@
                                             <th>STT</th>
                                             <th>Hình sản phẩm</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Loại xe</th>
                                             <th>Số lượng</th>
                                             <th>Giá nhập</th>
                                             <th>Action</th>
@@ -96,6 +97,7 @@
                                                 <td>{{++$i}}</td>
                                                 <td><img src="{{url($pro->avatar)}}" alt="anh san pham" width="50px" height="50px"></td>
                                                 <td style="text-transform: capitalize;">{{$pro->name}}</td>
+                                                <td style="text-transform: capitalize;">{{$pro->type}}</td>
                                                 <td>{{$pro->number}}</td>
                                                 {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
                                                 <td>{{number_format($pro->gianhap)}}</td>

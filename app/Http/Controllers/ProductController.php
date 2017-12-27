@@ -31,7 +31,6 @@ class ProductController extends Controller
         if(Session('cart')){
             $oldCart = Session::get('cart');
             $cart = new Cart($oldCart);
-//            dd($cart);
             return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product, 'bill_number' => $bill_number]);
         }
         return view('product.release',compact('all_product','users','bill_number'));
@@ -73,7 +72,7 @@ class ProductController extends Controller
     public function createBill(Request $request){
         $employee = Session::get('name');
         $customer = $request->name;
-        $time = $request->time;
+        $time = date('Y-m-d');
         DB::table('bill')->insert(
             ['created_date'=>$time,'employee_name' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
         );
@@ -81,9 +80,20 @@ class ProductController extends Controller
         return "ok";
     }
 
-    public function getListBill(){
-        $bills=DB::table('bill')->get();
-        return view('product.list_bill',compact('bills'));
+    public function getListBill(Request $request){
+        if($request->from_date == null || $request->to_date == null){
+            $from_date = date('Y-m-d', strtotime('-2 months'));
+            $to_date = date('Y-m-d');
+        } else {
+            $from_date = date('Y-m-d', strtotime($request->from_date));
+            $to_date = date('Y-m-d', strtotime($request->to_date));
+        }
+        $bills=DB::table('bill')
+        ->where(function ($query) use ($from_date, $to_date) {
+            $query->whereBetween('created_date',[$from_date, $to_date]);
+        })
+        ->get();
+        return view('product.list_bill',compact('bills','from_date','to_date'));
     }
 
     public function xoasession()
@@ -131,6 +141,7 @@ class ProductController extends Controller
         }
         return redirect()->back();
     }
+
     public function add() {
         $product_type = DB::table('product_type')
             ->get();
@@ -150,6 +161,7 @@ class ProductController extends Controller
         $number=$request->number;
         $masp=$request->masp;
         $loaisp=$request->loaisp;
+        $position=$request->position;
         $dongia=$request->dongia;
         $gianhap=$request->gianhap;
         $avatar=$request->avatar;
@@ -159,11 +171,11 @@ class ProductController extends Controller
             $avatar->move('img',$filename);
             DB::table('product')
                 ->where('id',$id)
-                ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'gianhap' =>$gianhap,'type' =>$loaisp,'avatar' => 'img/'.$filename ]);
+                ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'gianhap' =>$gianhap,'position' =>$position,'type' =>$loaisp,'avatar' => 'img/'.$filename ]);
         }
         DB::table('product')
             ->where('id',$id)
-            ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'gianhap' =>$gianhap,'type' =>$loaisp]);
+            ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'position' =>$position,'gianhap' =>$gianhap,'type' =>$loaisp]);
         return redirect(url(route('product-index')))->with('thongbao','Sửa thành công');
     }
 
@@ -180,6 +192,7 @@ class ProductController extends Controller
         $code = $request->product_code;
 //        $number = $request->number;
         $type = $request->type;
+        $position=$request->position;
         $dongia = $request->dongia;
         $gianhap = $request->gianhap;
         $avatar = $request->avatar;
@@ -200,6 +213,7 @@ class ProductController extends Controller
         $product->masp = $code;
         $product->number = 0;
         $product->type = $type;
+        $product->position = $position;
         $product->avatar = 'img/'.$filename;
         $product->dongia = $dongia;
         $product->gianhap = $gianhap;
