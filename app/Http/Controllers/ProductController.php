@@ -10,9 +10,23 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index() {
-        $product = Product::all();
-        return view('product.index',compact('product'));
+    public function index(Request $request) {
+        $id = $request->product_type_id;
+        if(!isset($id)){
+            $product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','dongia','gianhap','product_type.name as type_name')
+                ->get();
+        } else {
+            $product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','dongia','gianhap','product_type.name as type_name')
+                ->where('product.type',$id)
+                ->get();
+        }
+
+        $product_type = DB::table('product_type')->get();
+        return view('product.index',compact('product','product_type','id'));
     }
 
     public function release(Request $request) {
