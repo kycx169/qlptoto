@@ -17,16 +17,7 @@
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{route('product-index')}}" class="col-xs-8 form-inline">
-                            <select id="product_type" class="form-control" name="product_type_id">
-                                <option value="">Tất cả</option>
-                                @foreach($product_type as $pt)
-                                    <option value="{{$pt->id}}" {!! ($pt->id == $id) ? 'selected' : '' !!} >{{$pt->name}}</option>
-                                @endforeach
-                            </select>
-                        <input type="submit" class="btn btn-primary" value="Tìm kiếm">
-                    </form>
-                    <a class="btn btn-primary pull-right" href="{{url(route('product-add'))}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm</a>
+                    <a class="btn btn-primary pull-right" href="{{url(route('product-add'))}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm sản phẩm</a>
                 </div>
             </div>
             <div class="row">
@@ -34,6 +25,15 @@
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <h3 class="box-title">Danh sách sản phẩm</h3>
+                    <form action="{{route('product-index')}}" class="form-inline pull-right" style="margin-left: 15px ">
+                        <select id="product_type" class="form-control" name="product_type_id">
+                            <option value="">Tất cả</option>
+                            @foreach($product_type as $pt)
+                                <option value="{{$pt->id}}" {!! ($pt->id == $id) ? 'selected' : '' !!} >{{$pt->name}}</option>
+                            @endforeach
+                        </select>
+                        <input type="submit" class="btn btn-primary" value="Tìm kiếm">
+                    </form>
                         @if(session('thongbao'))
                             <div class="alert alert-success thongbao">
                                 {{session('thongbao')}}
@@ -45,12 +45,12 @@
                             <tr>
                                 <th style="width: 5px" >STT</th>
                                 <th>Ảnh sản phẩm</th>
-                                <th>Loại sản phẩm</th>
+                                <th>Loại xe</th>
                                 <th>Mã sản phẩm</th>
                                 <th>Tên sản phẩm</th>
                                 {{--<th>Loại xe</th>--}}
                                 <th>Số lượng</th>
-                                {{--<th>Vị trí</th>--}}
+                                <th>Vị trí</th>
                                 <th>Giá nhập</th>
                                 <th>Giá bán</th>
                                 <th>Tình trạng</th>
@@ -68,7 +68,7 @@
                                 <td style="text-transform: capitalize;">{{$p->name}}</td>
 {{--                                <td style="text-transform: capitalize;">{{$p->type}}</td>--}}
                                 <td>{{$p->number}}</td>
-                                {{--<td>{{$p->position}}</td>--}}
+                                <td>{{$p->position}}</td>
                                 <td>{{number_format($p->gianhap)}}</td>
                                 <td>{{number_format($p->dongia)}}</td>
                                 {{-- <td><span class="label label-{{$p->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$p->status}}</span></td> --}}

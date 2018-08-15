@@ -15,11 +15,6 @@
         <!-- Main content -->
         <section class="content container-fluid">
             <div class="row">
-                <div class="col-md-12">
-
-                </div>
-            </div>
-            <div class="row">
                 <!-- left column -->
                 <div class="col-md-7">
                     <!-- general form elements -->
@@ -27,16 +22,26 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Danh sách sản phẩm</h3>
                         </div>
+                        <form action="{{route('product-release')}}" class="form-inline pull-right">
+                            <select id="product_type" class="form-control" name="product_type_id">
+                                <option value="">Tất cả</option>
+                                @foreach($product_type as $pt)
+                                    <option value="{{$pt->id}}" {!! ($pt->id == $id) ? 'selected' : '' !!} >{{$pt->name}}</option>
+                                @endforeach
+                            </select>
+                            <input type="submit" class="btn btn-primary" value="Tìm kiếm">
+                        </form>
                         <!-- /.box-header -->
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>STT</th>
                                     <th>Hình sản phẩm</th>
-                                    <th>Mã sản phẩm</th>
+                                    <th>Mã sp</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
                                     <th>Vị trí</th>
+                                    <th>Loại xe</th>
                                     <th>Giá bán</th>
                                     <th>Action</th>
                                 </tr>
@@ -51,11 +56,12 @@
                                         <td>{{$pro->name}}</td>
                                         <td>{{$pro->number}}</td>
                                         <td>{{$pro->position}}</td>
+                                        <td>{{$pro->type_name}}</td>
                                         {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
                                         <td>{{number_format($pro->dongia)}}</td>
                                         <td>
                                             @if($pro->number>0)
-                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$pro->id}}"><i class="fa fa-cart-plus"></i> Xuất sản phẩm</button>
+                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$pro->id}}"><i class="fa fa-cart-plus"></i> Xuất hàng</button>
                                         @else
                                              <span class="label label-danger">Hết hàng</span>
                                         @endif
@@ -94,7 +100,7 @@
                                 $('#err{{$pro->id}}, #err2{{$pro->id}}').hide();
                                 $('#ok{{$pro->id}}').click(function(){
                                     var num{{$pro->id}} = $('#number{{$pro->id}}').val();
-                                    var pronum{{$pro->id}} = $('#proNumber{{$pro->id}}').val()
+                                    var pronum{{$pro->id}} = $('#proNumber{{$pro->id}}').val();
                                     if(!num{{$pro->id}})
                                     {
                                         $('#err{{$pro->id}}').hide();
@@ -282,6 +288,7 @@
         return gio+":"+phut+":"+giay+" "+ngay+"/"+thang+"/"+nam;
     }
     $(function () {
+        var product_name = $('#product_name');
         var name = $('#customername').val();
         $('.print-bill').click(function () {
             $('#myModal').modal('hide');
@@ -305,6 +312,7 @@
             frameDoc.document.write(contents);
             frameDoc.document.write('</body></html>');
             frameDoc.document.close();
+
             setTimeout(function () {
                 window.frames["frame1"].focus();
                 window.frames["frame1"].print();
@@ -317,6 +325,12 @@
                 });
             }, 500);
         });
+    });
+    $('.input').keypress(function (e) {
+        if (e.which == 13) {
+            $('form#login').submit();
+            return false;    //<---- Add this line
+        }
     });
 </script>
 @endsection

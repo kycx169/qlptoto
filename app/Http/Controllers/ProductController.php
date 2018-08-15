@@ -7,6 +7,8 @@ use App\model\Product;
 use Illuminate\Support\Facades\File;
 use Session;
 use Illuminate\Http\Request;
+use App\model\Bill;
+use App\model\Bill_detail;
 
 class ProductController extends Controller
 {
@@ -15,25 +17,41 @@ class ProductController extends Controller
         if(!isset($id)){
             $product = DB::table('product')
                 ->join('product_type','product.type','product_type.id')
-                ->select('product.id','masp','created_date','product.name','number','avatar','dongia','gianhap','product_type.name as type_name')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
                 ->get();
+//            dd($product);
         } else {
             $product = DB::table('product')
                 ->join('product_type','product.type','product_type.id')
-                ->select('product.id','masp','created_date','product.name','number','avatar','dongia','gianhap','product_type.name as type_name')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
                 ->where('product.type',$id)
                 ->get();
         }
-
         $product_type = DB::table('product_type')->get();
+//        dd($id);
         return view('product.index',compact('product','product_type','id'));
     }
 
     public function release(Request $request) {
+        $product_type = DB::table('product_type')->get();
         $users= DB::table('employees')
             ->get();
         $bill_number = DB::table('bill')->count() + 1;
-        $all_product = Product::all();
+//        $all_product = Product::all();
+        $id = $request->product_type_id;
+        if(!isset($id)){
+            $all_product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
+                ->get();
+//            dd($product);
+        } else {
+            $all_product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
+                ->where('product.type',$id)
+                ->get();
+        }
         if (isset($request->product_id)) {
             $product_id = $request->product_id;
             $product = Product::find($product_id);
@@ -42,14 +60,15 @@ class ProductController extends Controller
 
             return redirect() ->route('product-index');
         }
+//        dd($product);
         if(Session('cart')){
             $oldCart = Session::get('cart');
             $cart = new Cart($oldCart);
-            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product, 'bill_number' => $bill_number]);
+            return view('product.release', ['cartProducts' => $cart->items, 'totalPrice' => $cart->totalPrice, 'all_product' => $all_product,'id'=>$id,'product_type' =>$product_type, 'bill_number' => $bill_number]);
         }
-        return view('product.release',compact('all_product','users','bill_number'));
+//        dd($product_type);
+        return view('product.release',compact('all_product','users','bill_number','product_type','id'));
     }
-
 
     public function getXuatNhapTon() {
         $product = Product::all();
@@ -87,11 +106,50 @@ class ProductController extends Controller
         $employee = Session::get('name');
         $customer = $request->name;
         $time = date('Y-m-d');
-        DB::table('bill')->insert(
-            ['created_date'=>$time,'employee_name' => $employee,'customer_name' => $customer, 'total_price' => Session::get('cart')->totalPrice ]
-        );
+        $bill = new Bill();
+        $bill->created_date = $time;
+        $bill->employee_name = $employee;
+        $bill->customer_name = $customer;
+        $bill->total_price =  Session::get('cart')->totalPrice;
+        $bill->save();
+
+        $arr = [];
+        if(Session('cart')){
+            $oldCart = Session::get('cart');
+            $carts = $oldCart->items;
+            $total = $oldCart->totalPrice;
+            foreach ($carts as $cart)
+            {
+                $arr[] = $cart['item']['original'];
+            }
+            foreach ($arr as $item)
+            {
+                $masp = $item['masp'];
+                $created_date = $item['created_date'];
+                $name = $item['name'];
+                $number = $item['number'];
+                $avatar = $item['avatar'];
+                $dongia = $item['dongia'];
+                $type = $item['type'];
+                $position = $item['position'];
+
+                DB::table('bill_detail')->insert(
+                    ['created_date'=>$created_date,'employee_name' => $employee,'customer_name' => $customer,
+                    'masp' =>$masp, 'product_name' =>$name, 'number' =>$number, 'avatar' =>$avatar,
+                    'dongia' =>$dongia, 'type' =>$type, 'position' =>$position,'bill_id' =>$bill->id ]
+                );
+            }
+        }
         Session::forget('cart');
         return "ok";
+    }
+
+    public function getListbilldetail($id) {
+        $bill_detail = DB::table('bill_detail')
+                        ->where('bill_id',$id)
+                        ->get();
+        $bill = Bill::all();
+        return view('product.detail_bill',compact('bill_detail','bill'));
     }
 
     public function getListBill(Request $request){
@@ -124,20 +182,23 @@ class ProductController extends Controller
         return redirect()->route('product-release');
     }
 
-    public function import() {
-       
-        $all_product = Product::all();
-        // if (isset($request->product_id)) {
-        //     $product_id = $request->product_id;
-        //     $product = Product::find($product_id);
-        //     $product->number += $request->number;
-        //     $product->sohangnhap += $request->number;
-        //     $product->save();
+    public function import(Request $request) {
+        $product_type = DB::table('product_type')->get();
+        $id = $request->product_type_id;
+        if(!isset($id)){
+            $all_product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
+                ->get();
+        } else {
+            $all_product = DB::table('product')
+                ->join('product_type','product.type','product_type.id')
+                ->select('product.id','masp','created_date','product.name','number','avatar','position','dongia','gianhap','product_type.name as type_name')
+                ->where('product.type',$id)
+                ->get();
+        }
 
-        //     return redirect() ->route('product-import');
-        // }
-
-        return view('product.import',compact('all_product'));
+        return view('product.import',compact('all_product','product_type','id'));
     }
 
     public function postImport(Request $request){
@@ -162,19 +223,19 @@ class ProductController extends Controller
         return view('product.create',compact('product_type'));
     }
 
-
     public function update($id){
+        $product_type = DB::table('product_type')->get();
         $product = DB::table('product')
             ->where('id',$id)
             ->first();
-        return view('product.update',compact('product'));
+        return view('product.update',compact('product','product_type'));
     }
 
     public function edit($id, Request $request){
         $name=$request->name;
         $number=$request->number;
         $masp=$request->masp;
-        $loaisp=$request->loaisp;
+        $loaisp=$request->type;
         $position=$request->position;
         $dongia=$request->dongia;
         $gianhap=$request->gianhap;
@@ -186,10 +247,11 @@ class ProductController extends Controller
             DB::table('product')
                 ->where('id',$id)
                 ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'gianhap' =>$gianhap,'position' =>$position,'type' =>$loaisp,'avatar' => 'img/'.$filename ]);
+        } else {
+            DB::table('product')
+                ->where('id',$id)
+                ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'position' =>$position,'gianhap' =>$gianhap,'type' =>$loaisp]);
         }
-        DB::table('product')
-            ->where('id',$id)
-            ->update(['name' => $name, 'dongia' =>$dongia,'masp' =>$masp,'position' =>$position,'gianhap' =>$gianhap,'type' =>$loaisp]);
         return redirect(url(route('product-index')))->with('thongbao','Sửa thành công');
     }
 

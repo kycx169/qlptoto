@@ -51,3 +51,5 @@ Route::get('/del-cart/{id}','ProductController@getDelCart')->name('delCart');
 Route::get('/xoasession','ProductController@xoasession')->name('xoasession');
 Route::get('/bill','ProductController@createBill')->name('bill');
 Route::get('/list-bill','ProductController@getListBill')->name('getListBill');
+Route::get('/list-bill-detail/{id}','ProductController@getListbilldetail')->name('getListBillDetail');
+Route::get('/trang','Controller@test');

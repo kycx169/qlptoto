@@ -20,15 +20,27 @@
                             <div class="col-md-6">
                                 <a href="{{route('product-add')}}"  class="btn btn-primary"><span>Thêm sản phẩm</span></a>
                             </div>
+                            <div class="col-md-6">
+
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <!-- Horizontal Form -->
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Danh sách nhập hàng</h3>
                                     </div>
                                     <!-- /.box-header -->
+                                    <form action="{{route('product-import')}}" class="form-inline pull-right">
+                                        <select id="product_type" class="form-control" name="product_type_id">
+                                            <option value="">Tất cả</option>
+                                            @foreach($product_type as $pt)
+                                                <option value="{{$pt->id}}" {!! ($pt->id == $id) ? 'selected' : '' !!} >{{$pt->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="submit" class="btn btn-primary" value="Tìm kiếm">
+                                    </form>
                                     <form class="form-horizontal" action="{{route('postImport')}}" method="post">
                                       {{ csrf_field() }}
                                       <div class="box-body ">
@@ -66,7 +78,7 @@
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <!-- general form elements -->
                                 <div class="box box-primary" style="height: 500px">
                                     <div class="box-header with-border">
@@ -97,7 +109,7 @@
                                                 <td>{{++$i}}</td>
                                                 <td><img src="{{url($pro->avatar)}}" alt="anh san pham" width="50px" height="50px"></td>
                                                 <td style="text-transform: capitalize;">{{$pro->name}}</td>
-                                                <td style="text-transform: capitalize;">{{$pro->type}}</td>
+                                                <td style="text-transform: capitalize;">{{$pro->type_name}}</td>
                                                 <td>{{$pro->number}}</td>
                                                 {{--<td class="prod-hide"><span class="label label-{{$pro->status == 'Còn hàng' ? 'success' : 'danger' }}">{{$pro->status}}</span></td>--}}
                                                 <td>{{number_format($pro->gianhap)}}</td>
@@ -121,6 +133,8 @@
         <!-- /.content -->
     </div>
     <script type="text/javascript">
+       var availableTags =
+
        $('#add').click(function(){
             $('.add-group').append('<div class="sub-add"><div class="form-group col-xs-6"><label>Tên sản phẩm:</label><select name="product_id[]" class="form-control" style="text-transform: capitalize;">@foreach($all_product as $item)<option value="{{$item->id}}">{{$item->name}}</option>@endforeach</select></div><div class="form-group col-xs-6"><label>Số lượng: </label><input class="form-control" type="number" name="number[]" value="0" min="0" required></div><button type="button" class="btn btn-warning pull-right del-group"><i class="fa fa-minus"></i></button></div>');
        });

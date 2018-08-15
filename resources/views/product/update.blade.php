@@ -34,13 +34,17 @@
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">
-			                  <label>Loại xe: </label>
-			                  <input type="text" class="form-control" value="{{$product->position}}" name="loaisp" required>
-                              <label class="err1 label label-danger"></label>
+			                  <label> Loại xe: </label>
+                              <select style="width: 150px; padding-left: 30px; margin-left: 10px;" name="type">
+                                  <option value="{{$product->type}}">{{$product_type[$product->type-1]->name}}</option>
+                                  @foreach($product_type as $pt)
+                                  <option value="{{$pt->id}}">{{$pt->name}}</option>
+                                  @endforeach
+                              </select>
 			                </div>
 			                <div class="form-group">
 			                  <label>Vị trí: </label>
-			                  <input type="text" class="form-control" value="{{$product->type}}" name="position" required>
+			                  <input type="text" class="form-control" value="{{$product->position}}" name="position" required>
                               <label class="err1 label label-danger"></label>
 			                </div>
 			                <div class="form-group">

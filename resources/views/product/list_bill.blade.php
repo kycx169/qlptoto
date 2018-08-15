@@ -60,7 +60,7 @@
                                 <td>{{date('d-m-Y',strtotime($bill->created_date))}}</td>
                                 <td>{{number_format($bill->total_price)}} VNĐ</td>
                                 <td class="hide-nhanvien">
-                                    <a href="#"><span class="label label-warning">Chi tiết hóa đơn</span> </a>
+                                    <a href="{{url(route('getListBillDetail',$bill->id )) }}"><span class="label label-warning">Chi tiết hóa đơn</span> </a>
                                     {{--<a href="{{url(route('deleteProduct',$p->id))}}" onclick="return confirm('Bạn chắc chắn muốn xóa bản ghi này?')"><span class="label label-danger"> Xóa</span></a>--}}
                                 </td>
                             </tr>
